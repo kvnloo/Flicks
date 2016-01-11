@@ -1,13 +1,4 @@
-# Flicks/Users/Kevin/Desktop/Audio React Ring.rar
-/Users/Kevin/Desktop/whocares.jpg
-/Users/Kevin/Desktop/12202089_1664168023861369_266588663_n.jpg
-/Users/Kevin/Desktop/animated-tab-bar-master.zip
-/Users/Kevin/Desktop/ExpandableTableStarter.zip
-/Users/Kevin/Desktop/CellDescriptor.plist
-/Users/Kevin/Desktop/CellDescriptor.plist.zip
-/Users/Kevin/Desktop/Starter Project
-/Users/Kevin/Desktop/SevenSwitch.swift
-/Users/Kevin/Desktop/animated-tab-bar-master
+# Flicks
 
 Flicks is a movies app using the [The Movie Database API](http://docs.themoviedb.apiary.io/#).
 
