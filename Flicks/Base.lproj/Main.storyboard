@@ -54,9 +54,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Flicks" id="NQE-wz-p0b">
-                        <barButtonItem key="rightBarButtonItem" title="Show" id="Ob3-B8-O5O"/>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="Flicks" id="NQE-wz-p0b"/>
                     <connections>
                         <outlet property="tableView" destination="Xv2-Di-s5T" id="b4i-wb-2NK"/>
                     </connections>
