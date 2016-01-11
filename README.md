@@ -41,7 +41,7 @@ Here's a walkthrough of implemented user stories:
 
 [Simulated with very slow internet](/slow internet.gif)
 
-[Simulated with normal internet](/fast_internet.gif)
+[Simulated with normal internet](/fast internet.gif)
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
