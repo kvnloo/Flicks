@@ -39,12 +39,11 @@ The following **additional** features are implemented:
 
 Here's a walkthrough of implemented user stories:
 
-Simulated with normal settings:
-<img src='http://i.imgur.com/RzD0bYT.gif' title='' width='' alt='Video Walkthrough' />
-
 Simulated with very slow internet:
 <img src='http://i.imgur.com/MXNvXm4.gif' title='' width='' alt='Video Walkthrough' />
 
+Simulated with normal internet:
+<img src='http://i.imgur.com/RzD0bYT.gif' title='' width='' alt='Video Walkthrough' />
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
