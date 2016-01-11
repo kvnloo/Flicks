@@ -1,4 +1,13 @@
-# Flicks
+# Flicks/Users/Kevin/Desktop/Audio React Ring.rar
+/Users/Kevin/Desktop/whocares.jpg
+/Users/Kevin/Desktop/12202089_1664168023861369_266588663_n.jpg
+/Users/Kevin/Desktop/animated-tab-bar-master.zip
+/Users/Kevin/Desktop/ExpandableTableStarter.zip
+/Users/Kevin/Desktop/CellDescriptor.plist
+/Users/Kevin/Desktop/CellDescriptor.plist.zip
+/Users/Kevin/Desktop/Starter Project
+/Users/Kevin/Desktop/SevenSwitch.swift
+/Users/Kevin/Desktop/animated-tab-bar-master
 
 Flicks is a movies app using the [The Movie Database API](http://docs.themoviedb.apiary.io/#).
 
@@ -24,13 +33,16 @@ The following **optional** features are implemented:
 
 The following **additional** features are implemented:
 
-- [ ] List anything else that you can get done to improve the app functionality!
+- [ ] If internet connection is slow or unreliable, the loading state lasts only as long as it takes to get the movie names and descriptions. The movie thumbnails are loaded afterwards, when the user can interact with the application. This prioritizes the movie names and descriptions over the optional movie poster thumbnails.
 
 ## Video Walkthrough 
 
 Here's a walkthrough of implemented user stories:
 
-<img src='' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+<img src='http://i.imgur.com/RzD0bYT.gifv' title='Simulated with normal settings:' width='' alt='Video Walkthrough' />
+
+<img src='http://i.imgur.com/RzD0bYT.gifv' title='Simulated with very slow internet:' width='' alt='Video Walkthrough' />
+
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
