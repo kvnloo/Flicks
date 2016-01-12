@@ -25,17 +25,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let nowPlayingViewController = nowPlayingNavigationController.topViewController as! MoviesViewController
         nowPlayingViewController.endpoint = "now_playing"
         nowPlayingNavigationController.tabBarItem.title = "Now Playing"
+        nowPlayingNavigationController.tabBarItem.image = UIImage(named: "popular")
+        nowPlayingNavigationController.navigationBar.barStyle = .BlackTranslucent
         
         let topRatedNavigationController = storyboard.instantiateViewControllerWithIdentifier("FlicksNavigationController") as! UINavigationController
         let topRatedViewController = topRatedNavigationController.topViewController as! MoviesViewController
         topRatedViewController.endpoint = "top_rated"
         topRatedNavigationController.tabBarItem.title = "Top Rated"
+        topRatedNavigationController.tabBarItem.image = UIImage(named: "topRated")
+        
+        topRatedNavigationController.navigationBar.barStyle = .BlackTranslucent
+        
         
         let tabBarController = UITabBarController()
         tabBarController.viewControllers = [nowPlayingNavigationController, topRatedNavigationController]
+        tabBarController.tabBar.barStyle = .Black
+        tabBarController.tabBar.tintColor = UIColor.orangeColor()
         
         window?.rootViewController = tabBarController
         window?.makeKeyAndVisible()
+        
+        
         
         return true
     }
