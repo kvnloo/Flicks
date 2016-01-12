@@ -18,11 +18,11 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="MovieCell" rowHeight="120" id="Ned-pG-t0m" customClass="MovieCell" customModule="Flicks" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="MovieCell" rowHeight="120" id="Ned-pG-t0m" customClass="MovieCell" customModule="Flicks" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="92" width="320" height="120"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Ned-pG-t0m" id="sh6-wt-cK0">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="119"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="287" height="119"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="VZR-WM-lLM">
@@ -47,6 +47,7 @@
                                             <outlet property="overviewLabel" destination="MkM-P8-kbz" id="5RC-pa-mZG"/>
                                             <outlet property="posterView" destination="WeJ-3a-BcI" id="2N7-NT-vLa"/>
                                             <outlet property="titleLabel" destination="VZR-WM-lLM" id="Cll-y8-sri"/>
+                                            <segue destination="VY4-H0-ZqI" kind="push" id="fnk-ow-Sgn"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -63,10 +64,65 @@
             </objects>
             <point key="canvasLocation" x="1487" y="678"/>
         </scene>
+        <!--Detail View Controller-->
+        <scene sceneID="nJZ-BT-F81">
+            <objects>
+                <viewController id="VY4-H0-ZqI" customClass="DetailViewController" customModule="Flicks" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="SzX-y0-EYv">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="nib-N4-T5y">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="0ez-4K-lDr">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </imageView>
+                                    <view alpha="0.80000000000000004" contentMode="scaleToFill" id="AWl-Kn-XF1">
+                                        <rect key="frame" x="0.0" y="568" width="320" height="276"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="05F-ig-cFR">
+                                                <rect key="frame" x="9" y="8" width="303" height="23"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="19"/>
+                                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Overview" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="69V-NS-Xua">
+                                                <rect key="frame" x="9" y="39" width="303" height="21"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                    </view>
+                                </subviews>
+                            </scrollView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="aOl-5z-1O4"/>
+                    <connections>
+                        <outlet property="infoView" destination="AWl-Kn-XF1" id="w0N-Hi-U3p"/>
+                        <outlet property="overviewLabel" destination="69V-NS-Xua" id="FsT-xi-1xj"/>
+                        <outlet property="posterImageView" destination="0ez-4K-lDr" id="C8s-mE-dDu"/>
+                        <outlet property="scrollView" destination="nib-N4-T5y" id="vYv-iP-cD0"/>
+                        <outlet property="titleLabel" destination="05F-ig-cFR" id="my2-RT-aw7"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="0AT-Y2-m4D" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1913" y="678"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="mRM-4H-8kt">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="pK7-M8-xCt" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="FlicksNavigationController" automaticallyAdjustsScrollViewInsets="NO" id="pK7-M8-xCt" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="cvh-6m-HbB">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
