@@ -3,7 +3,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
-        <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
     </dependencies>
     <scenes>
         <!--Flicks-->
@@ -137,34 +136,18 @@
                     </view>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="Flicks" id="NQE-wz-p0b">
-                        <leftBarButtonItems>
-                            <barButtonItem image="menu" id="RJg-H7-jZs">
-                                <color key="tintColor" red="1" green="0.59999999999999998" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <connections>
-                                    <action selector="toggleMenu:" destination="BYZ-38-t0r" id="dUj-Bl-gvI"/>
-                                </connections>
-                            </barButtonItem>
-                            <barButtonItem image="menu" id="PGa-Km-oRY">
-                                <color key="tintColor" red="1" green="0.59999999999999998" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <connections>
-                                    <action selector="toggleMenu:" destination="BYZ-38-t0r" id="SPd-Fb-H0e"/>
-                                </connections>
-                            </barButtonItem>
-                        </leftBarButtonItems>
-                        <rightBarButtonItems>
-                            <barButtonItem image="albumView" id="qng-su-tYO">
-                                <color key="tintColor" red="1" green="0.59999999999999998" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <connections>
-                                    <action selector="switchAction:" destination="BYZ-38-t0r" id="uyE-eS-N7M"/>
-                                </connections>
-                            </barButtonItem>
-                            <barButtonItem image="menu" id="sqz-xO-MSa">
-                                <color key="tintColor" red="1" green="0.59999999999999998" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <connections>
-                                    <action selector="toggleMenu:" destination="BYZ-38-t0r" id="hHh-Jh-aHo"/>
-                                </connections>
-                            </barButtonItem>
-                        </rightBarButtonItems>
+                        <barButtonItem key="leftBarButtonItem" image="menu" id="RJg-H7-jZs">
+                            <color key="tintColor" red="1" green="0.59999999999999998" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <connections>
+                                <action selector="toggleMenu:" destination="BYZ-38-t0r" id="dUj-Bl-gvI"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" image="albumView" id="qng-su-tYO">
+                            <color key="tintColor" red="1" green="0.59999999999999998" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <connections>
+                                <action selector="switchAction:" destination="BYZ-38-t0r" id="uyE-eS-N7M"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
