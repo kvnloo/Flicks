@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0A2E4CE91C45FF58003668D9 /* tempViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2E4CE81C45FF58003668D9 /* tempViewController.swift */; };
 		0A2E4CEB1C464D84003668D9 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2E4CEA1C464D84003668D9 /* TabBarViewController.swift */; };
 		0A3C3B2E1C457D0A008C8808 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A3C3B2D1C457D0A008C8808 /* DetailViewController.swift */; };
 		0A9F50A91C45A9C40043BB57 /* ContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A9F50A81C45A9C40043BB57 /* ContainerViewController.swift */; };
@@ -23,7 +22,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		0A2E4CE81C45FF58003668D9 /* tempViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = tempViewController.swift; sourceTree = "<group>"; };
 		0A2E4CEA1C464D84003668D9 /* TabBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		0A3C3B2D1C457D0A008C8808 /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		0A9F50A81C45A9C40043BB57 /* ContainerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContainerViewController.swift; sourceTree = "<group>"; };
@@ -102,7 +100,6 @@
 				0A3C3B2D1C457D0A008C8808 /* DetailViewController.swift */,
 				0A9F50A81C45A9C40043BB57 /* ContainerViewController.swift */,
 				0A9F50AC1C45AEE40043BB57 /* MenuViewController.swift */,
-				0A2E4CE81C45FF58003668D9 /* tempViewController.swift */,
 				0A2E4CEA1C464D84003668D9 /* TabBarViewController.swift */,
 			);
 			name = ViewControllers;
@@ -248,7 +245,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0A2E4CE91C45FF58003668D9 /* tempViewController.swift in Sources */,
 				0A9F50AD1C45AEE40043BB57 /* MenuViewController.swift in Sources */,
 				0AB5B6331C435A17006339D6 /* AppDelegate.swift in Sources */,
 				0AB5B6451C435AA4006339D6 /* MoviesViewController.swift in Sources */,

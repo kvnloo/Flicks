@@ -15,8 +15,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+        UIApplication.sharedApplication().statusBarStyle = .LightContent
         // Override point for customization after application launch.
-        
+        /*
         //window = UIWindow(frame: UIScreen.mainScreen().bounds)
         
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
@@ -36,16 +37,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         topRatedNavigationController.navigationBar.barStyle = .BlackTranslucent
         
-        
-        
-        let tabBarController = storyboard.instantiateViewControllerWithIdentifier("TabBarController") as! UITabBarController
         //window?.rootViewController = tabBarController
-        print(tabBarController)
-        
+        /*
+        let tabBarController = storyboard.instantiateViewControllerWithIdentifier("TabBarController") as! UITabBarController
         tabBarController.viewControllers = [nowPlayingNavigationController, topRatedNavigationController]
         tabBarController.tabBar.barStyle = .Black
         tabBarController.tabBar.tintColor = UIColor.orangeColor()
-        
+        */
         
         
         //let containerViewController = storyboard.instantiateViewControllerWithIdentifier("ContainerViewController") as! ContainerViewController
@@ -53,7 +51,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         
         //window?.makeKeyAndVisible()
-
+        */
         
         return true
     }

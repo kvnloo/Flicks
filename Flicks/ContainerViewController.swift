@@ -15,24 +15,23 @@ class ContainerViewController: UIViewController {
     @IBOutlet weak var mainContainerView: UIView!
     
     
-    var leftMenuWidth:CGFloat = 2
-    var menuOpen: Bool = false
+    var leftMenuWidth:CGFloat = 0
+    var menuOpen: Bool = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Ensure leftMenuWidth is the width of the menuContainerView
         leftMenuWidth = menuContainerView.frame.width
-        // Initially close menu programmatically.  This needs to be done on the main thread initially in order to work.
         
-        dispatch_async(dispatch_get_main_queue()) {
-            self.closeMenu(false)
-        }
+        // Apply Shadow
+        applyPlainShadow(mainContainerView)
+        
         // Do any additional setup after loading the view.
         // Tab bar controller's child pages have a top-left button toggles the menu
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "toggleMenu", name: "toggleMenu", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "closeMenuViaNotification", name: "closeMenuViaNotification", object: nil)
-        
     }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -45,40 +44,83 @@ class ContainerViewController: UIViewController {
     }
     
     func toggleMenu(){
-        scrollView.contentOffset.x == 0  ? closeMenu() : openMenu()
+        scrollView.contentOffset.x == 0  ? openMenu() : closeMenu()
     }
     
-    // This wrapper function is necessary because
-    // closeMenu params do not match up with Notification
+    // This wrapper function is necessary because closeMenu params do not match up with Notification
     func closeMenuViaNotification(){
         closeMenu()
     }
-    
     // Use scrollview content offset-x to slide the menu.
     func closeMenu(animated:Bool = true){
-        scrollView.setContentOffset(CGPoint(x: leftMenuWidth, y: 0), animated: animated)
+        self.view.addSubview(menuContainerView)
+        menuContainerView.frame = CGRect(x: 0, y: 0, width: menuContainerView.frame.width, height: menuContainerView.frame.height)
+        self.view.sendSubviewToBack(menuContainerView)
+        scrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: animated)
+        
+        
     }
     
     // Open is the natural state of the menu because of how the storyboard is setup.
     func openMenu(){
-        scrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
+        scrollView.setContentOffset(CGPoint(x: -200, y: 0), animated: true)
     }
     
-    /*
+    func applyPlainShadow(view: UIView) {
+        let layer = view.layer
+        layer.shadowColor = UIColor.blackColor().CGColor
+        layer.shadowOffset = CGSize(width: -15, height: 0)
+        layer.shadowOpacity = 0.85
+        layer.shadowRadius = 50
+    }
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
+        if segue.destinationViewController.isKindOfClass(UITabBarController) {
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            
+            let nowPlayingNavigationController = storyboard.instantiateViewControllerWithIdentifier("FlicksNavigationController") as! UINavigationController
+            let nowPlayingViewController = nowPlayingNavigationController.topViewController as! MoviesViewController
+            nowPlayingViewController.endpoint = "now_playing"
+            nowPlayingNavigationController.tabBarItem.title = "Now Playing"
+            nowPlayingNavigationController.tabBarItem.image = UIImage(named: "popular")
+            nowPlayingNavigationController.navigationBar.barStyle = .BlackTranslucent
+            
+            let topRatedNavigationController = storyboard.instantiateViewControllerWithIdentifier("FlicksNavigationController") as! UINavigationController
+            let topRatedViewController = topRatedNavigationController.topViewController as! MoviesViewController
+            topRatedViewController.endpoint = "top_rated"
+            topRatedNavigationController.tabBarItem.title = "Top Rated"
+            topRatedNavigationController.tabBarItem.image = UIImage(named: "topRated")
+            
+            topRatedNavigationController.navigationBar.barStyle = .BlackTranslucent
+            
+            
+            
+            let tabVC = segue.destinationViewController as! UITabBarController
+            
+            tabVC.viewControllers = [nowPlayingNavigationController, topRatedNavigationController]
+            tabVC.tabBar.barStyle = .Black
+            tabVC.tabBar.tintColor = UIColor.orangeColor()
+            
+        }
     }
-    */
+    
 
 }
 
 extension ContainerViewController : UIScrollViewDelegate {
     func scrollViewDidScroll(scrollView: UIScrollView) {
         print("scrollView.contentOffset.x:: \(scrollView.contentOffset.x)")
+
+        if scrollView.contentOffset.x == -200 {
+            scrollView.addSubview(menuContainerView)
+            menuContainerView.frame = CGRect(x: -200, y: 0, width: menuContainerView.frame.width, height: menuContainerView.frame.height)
+            scrollView.bringSubviewToFront(mainContainerView)
+        }
+
     }
     
     // http://www.4byte.cn/question/49110/uiscrollview-change-contentoffset-when-change-frame.html

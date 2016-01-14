@@ -28,6 +28,7 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
         tableView.dataSource = self
         tableView.delegate = self
         tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: CellIdentifier)
+        self.navigationController?.navigationBar.barStyle = .BlackTranslucent
     }
 
     override func didReceiveMemoryWarning() {
@@ -49,6 +50,14 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
             return "TV Show Categories"
         }
     }
+    
+    func tableView(tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+        let header: UITableViewHeaderFooterView = view as! UITableViewHeaderFooterView
+        header.contentView.backgroundColor = UIColor.blackColor()
+        header.textLabel!.textColor = UIColor.whiteColor()
+        header.alpha = 0.85
+    }
+    
     // numberOfRowsInSection
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 0 {
@@ -92,7 +101,6 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
         cell.backgroundColor = UIColor.darkGrayColor()
         cell.tintColor = UIColor.orangeColor()
         cell.textLabel?.textColor = UIColor.whiteColor()
-        print(checked)
         return cell
         
     }
