@@ -197,7 +197,14 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
         })
     }
     
+    deinit {
+        NSNotificationCenter.defaultCenter().removeObserver(self)
+    }
     
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        NSNotificationCenter.defaultCenter().postNotificationName("closeMenuViaNotification", object: nil)
+        view.endEditing(true)
+    }
     
     // MARK: Actions
     
@@ -214,6 +221,11 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
         
         tableView.reloadData()
     }
+    
+    @IBAction func toggleMenu(sender: AnyObject) {
+        NSNotificationCenter.defaultCenter().postNotificationName("toggleMenu", object: nil)
+    }
+    
     
     // MARK: - Navigation
 
@@ -235,7 +247,4 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
         }
         
     }
-    
-    
-
 }
