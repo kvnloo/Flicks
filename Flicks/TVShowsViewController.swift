@@ -1,4 +1,12 @@
 //
+//  TVShowsViewController.swift
+//  Flicks
+//
+//  Created by Kevin Rajan on 1/14/16.
+//  Copyright © 2016 veeman961. All rights reserved.
+//
+
+//
 //  MoviesViewController.swift
 //  Flicks
 //
@@ -10,11 +18,11 @@ import UIKit
 import AFNetworking
 import JTProgressHUD
 
-class MoviesViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
-
+class TVShowsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+    
     @IBOutlet weak var tableView: UITableView!
     
-    var movies: [NSDictionary]?
+    var tvShows: [NSDictionary]?
     var refreshControl: UIRefreshControl!
     var endpoint: String!
     var detail: Bool = true
@@ -52,7 +60,7 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
                 if let data = dataOrNil {
                     if let responseDictionary = try! NSJSONSerialization.JSONObjectWithData(
                         data, options:[]) as? NSDictionary {
-                            self.movies = (responseDictionary["results"] as! [NSDictionary])
+                            self.tvShows = (responseDictionary["results"] as! [NSDictionary])
                             self.tableView.reloadData()
                             JTProgressHUD.hide()
                     }
@@ -60,15 +68,15 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
         });
         task.resume()
     }
-
+    
     
     override func viewWillAppear(animated: Bool) {
-        if movies == nil {
+        if tvShows == nil {
             JTProgressHUD.show()
         }
         
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -78,12 +86,12 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
     
     // numberOfRowsInSection
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if let movies = movies {
+        if let tvShows = tvShows {
             if detail {
-                return movies.count
+                return tvShows.count
             }
             else {
-                return movies.count/2
+                return tvShows.count/2
             }
             
         }
@@ -103,42 +111,42 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
     // configure cell
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        var cell: MovieCell
+        var cell: TVShowCell
         
         if detail {
-            cell = tableView.dequeueReusableCellWithIdentifier("MovieCellDetail", forIndexPath:  indexPath) as! MovieCell
+            cell = tableView.dequeueReusableCellWithIdentifier("TVShowCellDetail", forIndexPath:  indexPath) as! TVShowCell
             
             
             
-            let movie = movies![indexPath.row]
-            let title = movie["title"] as? String
-            let overview = movie["overview"] as? String
-            cell.titleLabel.text = title
+            let tvShow = tvShows![indexPath.row]
+            let name = tvShow["name"] as? String
+            let overview = tvShow["overview"] as? String
+            cell.titleLabel.text = name
             cell.overviewLabel.text = overview
             
             let baseUrl = "http://image.tmdb.org/t/p/w500/"
             
-            if let posterPath = movie["poster_path"] as? String {
+            if let posterPath = tvShow["poster_path"] as? String {
                 let posterURL = NSURL(string: baseUrl + posterPath)
                 cell.posterImage.setImageWithURL(posterURL!)
             }
             
-            let year = (movie["release_date"] as! NSString).substringWithRange(NSRange(location: 0, length: 4))
-            let rating = movie["vote_average"] as! Double
-            cell.yearLabel.text = String(year)
+            let airDate = (tvShow["first_air_date"] as! NSString)
+            let rating = tvShow["vote_average"] as! Double
+            cell.airDateLabel.text = String(airDate)
             cell.ratingLabel.text = String(format: "%.1f", rating)
             ratingColor(cell.ratingLabel, rating: rating)
             
         }
         else {
-            cell = tableView.dequeueReusableCellWithIdentifier("MovieCellIcon", forIndexPath:  indexPath) as! MovieCell
+            cell = tableView.dequeueReusableCellWithIdentifier("TVShowCellIcon", forIndexPath:  indexPath) as! TVShowCell
             cell.selectionStyle = .None
             let index = 2*indexPath.row
-            let movie1 = movies![index]
-            let movie2 = movies![index + 1]
+            let movie1 = tvShows![index]
+            let movie2 = tvShows![index + 1]
             
-            let year1 = (movie1["release_date"] as! NSString).substringWithRange(NSRange(location: 0, length: 4))
-            let year2 = (movie1["release_date"] as! NSString).substringWithRange(NSRange(location: 0, length: 4))
+            let airDate1 = (movie1["first_air_date"] as! NSString)
+            let airDate2 = (movie1["first_air_date"] as! NSString)
             
             let rating1 = movie1["vote_average"] as! Double
             let rating2 = movie1["vote_average"] as! Double
@@ -153,8 +161,10 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
             cell.posterImage1.setImageWithURL(imageUrl1!)
             cell.posterImage2.setImageWithURL(imageUrl2!)
             
-            cell.yearLabel1.text = String(year1)
-            cell.yearLabel2.text = String(year2)
+            
+            
+            cell.airDateLabel1.text = String(airDate1)
+            cell.airDateLabel2.text = String(airDate2)
             
             cell.ratingLabel1.text = String(format: "%.1f", rating1)
             cell.ratingLabel2.text = String(format: "%.1f", rating2)
@@ -165,7 +175,7 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
         
         return cell
     }
-
+    
     // MARK: Helper methods
     
     func ratingColor(label: UILabel, rating: Double) {
@@ -229,7 +239,7 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
     
     
     // MARK: - Navigation
-
+    
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         // Get the new view controller using segue.destinationViewController.
@@ -237,10 +247,10 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
         if detail {
             let cell = sender as! UITableViewCell
             let indexpath = tableView.indexPathForCell(cell)
-            let movie = movies![indexpath!.row]
+            let tvShow = tvShows![indexpath!.row]
             
-            let detailViewController = segue.destinationViewController as! MovieDetailViewController
-            detailViewController.movie = movie
+            let tvShowDetailViewController = segue.destinationViewController as! TVShowDetailViewController
+            tvShowDetailViewController.tvShow = tvShow
         }
         else {
             let gestureRecognizer = sender as! UIGestureRecognizer

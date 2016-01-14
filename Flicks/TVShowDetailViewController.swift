@@ -1,14 +1,16 @@
 //
-//  DetailViewController.swift
+//  TVShowDetailViewController.swift
+//  Flicks
 //
-//
-//  Created by Kevin Rajan on 1/12/16.
-//
+//  Created by Kevin Rajan on 1/14/16.
+//  Copyright © 2016 veeman961. All rights reserved.
 //
 
 import UIKit
 
-class DetailViewController: UIViewController {
+import UIKit
+
+class TVShowDetailViewController: UIViewController {
     
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var overviewLabel: UILabel!
@@ -16,8 +18,8 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var infoView: UIView!
     @IBOutlet weak var ratingLabel: UILabel!
-    @IBOutlet weak var yearLabel: UILabel!
-    var movie: NSDictionary!
+    @IBOutlet weak var airDateLabel: UILabel!
+    var tvShow: NSDictionary!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,21 +28,21 @@ class DetailViewController: UIViewController {
         
         scrollView.contentSize = CGSize(width: scrollView.frame.size.width, height: infoView.frame.origin.y + infoView.frame.size.height)
         
-        let title = movie["title"] as! String
-        let overview = movie["overview"] as! String
+        let name = tvShow["name"] as! String
+        let overview = tvShow["overview"] as! String
         
         let baseUrl = "http://image.tmdb.org/t/p/w500/"
         
-        if let posterPath = movie["poster_path"] as? String {
+        if let posterPath = tvShow["poster_path"] as? String {
             let posterURL = NSURL(string: baseUrl + posterPath)
             posterImageView.setImageWithURL(posterURL!)
         }
         
-        let year = (movie["release_date"] as! NSString).substringWithRange(NSRange(location: 0, length: 4))
-        let rating = movie["vote_average"] as! Double
+        let airDate = (tvShow["first_air_date"] as! NSString)
+        let rating = tvShow["vote_average"] as! Double
         
-        titleLabel.text = title
-        yearLabel.text = String(year)
+        titleLabel.text = name
+        airDateLabel.text = String(airDate)
         ratingLabel.text = String(format: "%.1f", rating)
         ratingColor(ratingLabel, rating: rating)
         overviewLabel.text = overview
@@ -81,3 +83,4 @@ class DetailViewController: UIViewController {
     */
     
 }
+

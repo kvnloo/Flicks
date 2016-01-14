@@ -17,9 +17,9 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
     var checked: [Bool]!
     let CellIdentifier = "CategoryCell"
     
-    let movieCategory = ["Now Playing","Top Rated", "Latest", "Popular", "Upcoming"]
+    let movieCategory = ["Now Playing","Popular","Top Rated", "Upcoming"]
     let tvCategory = ["On the Air", "Airing Today", "Top Rated", "Popular"]
-    
+    let endPoints = ["movie/now_playing", "movie/popular", "movie/top_rated", "movie/upcoming", "tv/on_the_air", "tv/airing_today", "tv/top_rated", "tv/popular"]
     
     override func viewDidLoad() {
         super.viewDidLoad()

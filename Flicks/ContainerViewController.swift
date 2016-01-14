@@ -82,26 +82,36 @@ class ContainerViewController: UIViewController {
         if segue.destinationViewController.isKindOfClass(UITabBarController) {
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             
-            let nowPlayingNavigationController = storyboard.instantiateViewControllerWithIdentifier("FlicksNavigationController") as! UINavigationController
-            let nowPlayingViewController = nowPlayingNavigationController.topViewController as! MoviesViewController
-            nowPlayingViewController.endpoint = "now_playing"
-            nowPlayingNavigationController.tabBarItem.title = "Now Playing"
-            nowPlayingNavigationController.tabBarItem.image = UIImage(named: "popular")
-            nowPlayingNavigationController.navigationBar.barStyle = .BlackTranslucent
+            let nowPlayingMoviesNavigationController = storyboard.instantiateViewControllerWithIdentifier("MoviesNavigationController") as! UINavigationController
+            let nowPlayingMoviesViewController = nowPlayingMoviesNavigationController.topViewController as! MoviesViewController
+            nowPlayingMoviesViewController.endpoint = "movie/now_playing"
+            nowPlayingMoviesNavigationController.tabBarItem.title = "Now Playing"
+            nowPlayingMoviesNavigationController.tabBarItem.image = UIImage(named: "popular")
+            nowPlayingMoviesNavigationController.navigationBar.barStyle = .BlackTranslucent
             
-            let topRatedNavigationController = storyboard.instantiateViewControllerWithIdentifier("FlicksNavigationController") as! UINavigationController
-            let topRatedViewController = topRatedNavigationController.topViewController as! MoviesViewController
-            topRatedViewController.endpoint = "top_rated"
-            topRatedNavigationController.tabBarItem.title = "Top Rated"
-            topRatedNavigationController.tabBarItem.image = UIImage(named: "topRated")
+            let upcomingMoviesNavigationController = storyboard.instantiateViewControllerWithIdentifier("MoviesNavigationController") as! UINavigationController
+            let upcomingMoviesViewController = upcomingMoviesNavigationController.topViewController as! MoviesViewController
+            upcomingMoviesViewController.endpoint = "movie/upcoming"
+            upcomingMoviesNavigationController.tabBarItem.title = "Upcoming"
+            upcomingMoviesNavigationController.tabBarItem.image = UIImage(named: "")
+            upcomingMoviesNavigationController.navigationBar.barStyle = .BlackTranslucent
             
-            topRatedNavigationController.navigationBar.barStyle = .BlackTranslucent
+            let onTheAirTVShowsNavigationController = storyboard.instantiateViewControllerWithIdentifier("TVShowsNavigationController") as! UINavigationController
+            let onTheAirTVShowsViewController = onTheAirTVShowsNavigationController.topViewController as! TVShowsViewController
+            onTheAirTVShowsViewController.endpoint = "tv/on_the_air"
+            onTheAirTVShowsNavigationController.tabBarItem.title = "On The Air"
+            onTheAirTVShowsNavigationController.tabBarItem.image = UIImage(named: "")
+            onTheAirTVShowsNavigationController.navigationBar.barStyle = .BlackTranslucent
             
-            
+            let popularTVShowsNavigationController = storyboard.instantiateViewControllerWithIdentifier("TVShowsNavigationController") as! UINavigationController
+            let popularTVShowsViewController = popularTVShowsNavigationController.topViewController as! TVShowsViewController
+            popularTVShowsViewController.endpoint = "tv/popular"
+            popularTVShowsNavigationController.tabBarItem.title = "Popular"
+            popularTVShowsNavigationController.tabBarItem.image = UIImage(named: "")
+            popularTVShowsNavigationController.navigationBar.barStyle = .BlackTranslucent
             
             let tabVC = segue.destinationViewController as! UITabBarController
-            
-            tabVC.viewControllers = [nowPlayingNavigationController, topRatedNavigationController]
+            tabVC.viewControllers = [nowPlayingMoviesNavigationController, upcomingMoviesNavigationController, onTheAirTVShowsNavigationController, popularTVShowsNavigationController]
             tabVC.tabBar.barStyle = .Black
             tabVC.tabBar.tintColor = UIColor.orangeColor()
             
