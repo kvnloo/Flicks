@@ -14,12 +14,12 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     @IBOutlet weak var tableView: UITableView!
     
-    var checked: [Bool]!
+    var count: Int = 0
+    var checked: [[Bool]]!
     var checkedKey:String = "CHECKED_CATEGORIES"
     let CellIdentifier = "CategoryCell"
     
-    let movieCategory = ["Now Playing","Popular","Top Rated", "Upcoming"]
-    let tvCategory = ["On the Air", "Airing Today", "Top Rated", "Popular"]
+    let categories = [["Now Playing","Popular","Top Rated", "Upcoming"],["On the Air", "Airing Today", "Top Rated", "Popular"]]
     
     
     override func viewDidLoad() {
@@ -30,10 +30,20 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
         self.navigationController?.navigationBar.barStyle = .BlackTranslucent
         
         
-        //Configures checked: [Bool]
+        //Configures checked: [[Bool]]
         let defaults = NSUserDefaults.standardUserDefaults()
-        self.checked = defaults.objectForKey(checkedKey) as! [Bool]
+        self.checked = defaults.objectForKey(checkedKey) as! [[Bool]]
         print(self.checked)
+
+        for i in 0 ..< checked.count {
+            for j in 0 ..< checked[i].count {
+                if (checked[i][j]) {
+                    ++count
+                }
+                print(count)
+            }
+        }
+
     }
 
     override func didReceiveMemoryWarning() {
@@ -43,10 +53,12 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     // MARK: TableView - Configure the UITableView
     
+    // tableview contains 2 sections
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 2
+        return categories.count
         
     }
+    // title for each section
     func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if(section == 0) {
             return "Movie Categories"
@@ -60,140 +72,99 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
         let header: UITableViewHeaderFooterView = view as! UITableViewHeaderFooterView
         header.contentView.backgroundColor = UIColor.blackColor()
         header.textLabel!.textColor = UIColor.whiteColor()
-        header.alpha = 0.85
+        header.alpha = 0.55
     }
     
     // numberOfRowsInSection
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if section == 0 {
-            return movieCategory.count
-        }
-        else {
-            return tvCategory.count
-        }
+        return categories[section].count
     }
     // didselectrow
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
-        if maxChecked(checked) {
-            if indexPath.section == 0 {
-                for index in 0 ..< movieCategory.count {
-                    if checked[index] == false {
-                        disableCell(tableView.cellForRowAtIndexPath(NSIndexPath(forRow: index, inSection: indexPath.section))!)
-                    }
-                }
-                checked[indexPath.row] = !(checked[indexPath.row])
-            }
-            else {
-                for index in 0 ..< tvCategory.count {
-                    if checked[index + movieCategory.count] == false {
-                        disableCell(tableView.cellForRowAtIndexPath(NSIndexPath(forRow: index, inSection: indexPath.section))!)
-                    }
-                }
-                checked[indexPath.row + movieCategory.count] = !(checked[indexPath.row + movieCategory.count])
-            }
+        let cell = tableView.dequeueReusableCellWithIdentifier("CategoryCell")!
+        checked[indexPath.section][indexPath.row] = !(checked[indexPath.section][indexPath.row])
+        if checked[indexPath.section][indexPath.row] {
+            cell.accessoryType = .Checkmark
+            ++count
         }
         else {
-            
-            for index in 0 ..< movieCategory.count {
-                enableCell(tableView.cellForRowAtIndexPath(NSIndexPath(forRow: index, inSection: indexPath.section))!)
-            }
-            
-            if indexPath.section == 0 {
-                checked[indexPath.row] = !(checked[indexPath.row])
-            }
-            else {
-                checked[indexPath.row + movieCategory.count] = !(checked[indexPath.row + movieCategory.count])
-            }
+            cell.accessoryType = .None
+            --count
         }
+        if count == 4 {
+            tableViewHandler(self.tableView,  maxChecked: true)
+        }
+        else {
+            tableViewHandler(self.tableView,  maxChecked: false)
+        }
+        
         tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+        print(checked)
         
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier(CellIdentifier, forIndexPath: indexPath)
-        if(indexPath.section == 0) {
-            cell.textLabel?.text = movieCategory[indexPath.row]
-            if maxChecked(checked) {
-                if checked[indexPath.row] {
-                    cell.accessoryType = .Checkmark
-                    enableCell(cell)
-                }
-                else {
-                    cell.accessoryType = .None
-                    disableCell(cell)
-                }
-            }
-            else {
-                if checked[indexPath.row] {
-                    cell.accessoryType = .Checkmark
-                    enableCell(cell)
-                }
-                else {
-                    cell.accessoryType = .None
-                    enableCell(cell)
-                }
-            }
-        }
-        else {
-            cell.textLabel?.text = tvCategory[indexPath.row]
-            if maxChecked(checked) {
-                if checked[indexPath.row + movieCategory.count] {
-                    cell.accessoryType = .Checkmark
-                    enableCell(cell)
-                }
-                else {
-                    cell.accessoryType = .None
-                    disableCell(cell)
-                }
-            }
-            else {
-                if checked[indexPath.row + movieCategory.count] {
-                    cell.accessoryType = .Checkmark
-                    enableCell(cell)
-                }
-                else {
-                    cell.accessoryType = .None
-                    enableCell(cell)
-                }
-            }
-            
-        }
         
+        let cell = tableView.dequeueReusableCellWithIdentifier("CategoryCell")!
         
+        cell.textLabel?.text = categories[indexPath.section][indexPath.row]
         
         cell.backgroundColor = UIColor.darkGrayColor()
         cell.tintColor = UIColor.orangeColor()
         cell.textLabel?.textColor = UIColor.whiteColor()
+        if count == 4 {
+            if checked[indexPath.section][indexPath.row] {
+                cell.accessoryType = .Checkmark
+            }
+            else {
+                cell.accessoryType = .None
+                disableCell(cell)
+            }
+        }
+        else {
+            if checked[indexPath.section][indexPath.row] {
+                cell.accessoryType = .Checkmark
+            }
+            else {
+                cell.accessoryType = .None
+            }
+        }
         return cell
-        
     }
     
     // MARK: Helper methods
     
     func disableCell(cell: UITableViewCell) {
         cell.userInteractionEnabled = false
-        cell.alpha = 0.5
+        cell.backgroundColor = UIColor.blackColor()
     }
     
     func enableCell(cell: UITableViewCell) {
+        cell.backgroundColor = UIColor.darkGrayColor()
         cell.userInteractionEnabled = true
-        cell.alpha = 1
+        
     }
     
-    func maxChecked(array: [Bool]) -> Bool {
-        
-        var count: Int = 0
-        for boolean in array {
-            if boolean {
-                ++count
-            }
-            if count == 4 {
-                return true
+    func tableViewHandler(tableView: UITableView, maxChecked: Bool) {
+        if maxChecked {
+            for i in 0 ..< checked.count {
+                for j in 0 ..< checked[i].count {
+                    if !(checked[i][j]) {
+                        disableCell(tableView.cellForRowAtIndexPath(NSIndexPath(forRow: j, inSection: i))!)
+                    }
+                }
             }
         }
-       return false
+        else {
+            for i in 0 ..< checked.count {
+                for j in 0 ..< checked[i].count {
+                    enableCell(tableView.cellForRowAtIndexPath(NSIndexPath(forRow: j, inSection: i))!)
+                }
+            }
+        }
     }
+
 
     /*
     // MARK: - Navigation

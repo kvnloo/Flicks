@@ -17,11 +17,10 @@ class ContainerViewController: UIViewController {
     
     
     var leftMenuWidth:CGFloat = 0
-    var checked:[Bool]!
+    var checked:[[Bool]]!
     var checkedKey:String = "CHECKED_CATEGORIES"
-    let movieCategory = ["Now Playing","Popular","Top Rated", "Upcoming"]
-    let tvCategory = ["On the Air", "Airing Today", "Top Rated", "Popular"]
-    let endPoints = ["movie/now_playing", "movie/popular", "movie/top_rated", "movie/upcoming", "tv/on_the_air", "tv/airing_today", "tv/top_rated", "tv/popular"]
+    let categories = [["Now Playing","Popular","Top Rated", "Upcoming"],["On the Air", "Airing Today", "Top Rated", "Popular"]]
+    let endPoints = [["movie/now_playing", "movie/popular", "movie/top_rated", "movie/upcoming"], ["tv/on_the_air", "tv/airing_today", "tv/top_rated", "tv/popular"]]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -95,30 +94,32 @@ class ContainerViewController: UIViewController {
         if segue.destinationViewController.isKindOfClass(UITabBarController) {
             
             let defaults = NSUserDefaults.standardUserDefaults()
-            self.checked = defaults.objectForKey(checkedKey) as! [Bool]
+            self.checked = defaults.objectForKey(checkedKey) as! [[Bool]]
             
             let tabVC = segue.destinationViewController as! UITabBarController
             tabVC.tabBar.barStyle = .Black
             tabVC.tabBar.tintColor = UIColor.orangeColor()
             var viewControllers = [UINavigationController]()
-            for i in 0 ..< movieCategory.count {
-                if checked[i] {
+            
+            
+            
+            for i in 0 ..< categories[0].count {
+                if checked[0][i] {
                     let moviesNavigationController = storyboard.instantiateViewControllerWithIdentifier("MoviesNavigationController") as! UINavigationController
                     let moviesViewController = moviesNavigationController.topViewController as! MoviesViewController
-                    moviesViewController.endpoint = endPoints[i]
-                    moviesNavigationController.tabBarItem.title = movieCategory[i]
+                    moviesViewController.endpoint = endPoints[0][i]
+                    moviesNavigationController.tabBarItem.title = categories[0][i]
                     moviesNavigationController.tabBarItem.image = UIImage(named: "popular")
                     moviesNavigationController.navigationBar.barStyle = .BlackTranslucent
                     viewControllers.append(moviesNavigationController)
                 }
             }
-            for i in 0 ..< tvCategory.count {
-                let checkedIndex = i + movieCategory.count
-                if checked[checkedIndex] {
+            for i in 0 ..< categories[1].count {
+                if checked[0][i] {
                     let tvShowsNavigationController = storyboard.instantiateViewControllerWithIdentifier("TVShowsNavigationController") as! UINavigationController
                     let tvShowsViewController = tvShowsNavigationController.topViewController as! TVShowsViewController
-                    tvShowsViewController.endpoint = endPoints[checkedIndex]
-                    tvShowsNavigationController.tabBarItem.title = tvCategory[i]
+                    tvShowsViewController.endpoint = endPoints[1][i]
+                    tvShowsNavigationController.tabBarItem.title = categories[1][i]
                     tvShowsNavigationController.tabBarItem.image = UIImage(named: "popular")
                     tvShowsNavigationController.navigationBar.barStyle = .BlackTranslucent
                     viewControllers.append(tvShowsNavigationController)

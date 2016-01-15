@@ -12,19 +12,19 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-    var checked: [Bool]!
+    var checked: [[Bool]]!
     var checkedKey:String = "CHECKED_CATEGORIES"
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         UIApplication.sharedApplication().statusBarStyle = .LightContent
-        
         let defaults = NSUserDefaults.standardUserDefaults()
-        let checked = defaults.objectForKey(checkedKey) as! [Bool]?
+        let checked = defaults.objectForKey(checkedKey)
+        //print(checked)
         if checked == nil {
-            self.checked = [true, false, false, true, true, false, false, true]
+            self.checked = [[true, false, false, true], [true, false, false, true]]
         }
         else {
-            self.checked = checked
+            self.checked = checked as! [[Bool]]
         }
         
         defaults.setObject(self.checked, forKey: checkedKey)
