@@ -15,14 +15,24 @@ class ContainerViewController: UIViewController {
     @IBOutlet weak var mainContainerView: UIView!
     
     
+    
     var leftMenuWidth:CGFloat = 0
-    var menuOpen: Bool = true
+    var checked:[Bool]!
+    var checkedKey:String = "CHECKED_CATEGORIES"
+    let movieCategory = ["Now Playing","Popular","Top Rated", "Upcoming"]
+    let tvCategory = ["On the Air", "Airing Today", "Top Rated", "Popular"]
+    let endPoints = ["movie/now_playing", "movie/popular", "movie/top_rated", "movie/upcoming", "tv/on_the_air", "tv/airing_today", "tv/top_rated", "tv/popular"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        /*
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let menuViewController = storyboard.instantiateViewControllerWithIdentifier("MenuViewController") as! MenuViewController
+        menuViewController.checked = self.checked
+        */
+        
         // Ensure leftMenuWidth is the width of the menuContainerView
         leftMenuWidth = menuContainerView.frame.width
-        
         // Apply Shadow
         applyPlainShadow(mainContainerView)
         
@@ -79,9 +89,45 @@ class ContainerViewController: UIViewController {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
+        
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        
         if segue.destinationViewController.isKindOfClass(UITabBarController) {
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
             
+            let defaults = NSUserDefaults.standardUserDefaults()
+            self.checked = defaults.objectForKey(checkedKey) as! [Bool]
+            
+            let tabVC = segue.destinationViewController as! UITabBarController
+            tabVC.tabBar.barStyle = .Black
+            tabVC.tabBar.tintColor = UIColor.orangeColor()
+            var viewControllers = [UINavigationController]()
+            for i in 0 ..< movieCategory.count {
+                if checked[i] {
+                    let moviesNavigationController = storyboard.instantiateViewControllerWithIdentifier("MoviesNavigationController") as! UINavigationController
+                    let moviesViewController = moviesNavigationController.topViewController as! MoviesViewController
+                    moviesViewController.endpoint = endPoints[i]
+                    moviesNavigationController.tabBarItem.title = movieCategory[i]
+                    moviesNavigationController.tabBarItem.image = UIImage(named: "popular")
+                    moviesNavigationController.navigationBar.barStyle = .BlackTranslucent
+                    viewControllers.append(moviesNavigationController)
+                }
+            }
+            for i in 0 ..< tvCategory.count {
+                let checkedIndex = i + movieCategory.count
+                if checked[checkedIndex] {
+                    let tvShowsNavigationController = storyboard.instantiateViewControllerWithIdentifier("TVShowsNavigationController") as! UINavigationController
+                    let tvShowsViewController = tvShowsNavigationController.topViewController as! TVShowsViewController
+                    tvShowsViewController.endpoint = endPoints[checkedIndex]
+                    tvShowsNavigationController.tabBarItem.title = tvCategory[i]
+                    tvShowsNavigationController.tabBarItem.image = UIImage(named: "popular")
+                    tvShowsNavigationController.navigationBar.barStyle = .BlackTranslucent
+                    viewControllers.append(tvShowsNavigationController)
+                }
+            }
+            
+            tabVC.viewControllers? = viewControllers
+            
+            /*
             let nowPlayingMoviesNavigationController = storyboard.instantiateViewControllerWithIdentifier("MoviesNavigationController") as! UINavigationController
             let nowPlayingMoviesViewController = nowPlayingMoviesNavigationController.topViewController as! MoviesViewController
             nowPlayingMoviesViewController.endpoint = "movie/now_playing"
@@ -114,8 +160,10 @@ class ContainerViewController: UIViewController {
             tabVC.viewControllers = [nowPlayingMoviesNavigationController, upcomingMoviesNavigationController, onTheAirTVShowsNavigationController, popularTVShowsNavigationController]
             tabVC.tabBar.barStyle = .Black
             tabVC.tabBar.tintColor = UIColor.orangeColor()
+            */
             
         }
+
     }
     
 
@@ -123,7 +171,7 @@ class ContainerViewController: UIViewController {
 
 extension ContainerViewController : UIScrollViewDelegate {
     func scrollViewDidScroll(scrollView: UIScrollView) {
-        print("scrollView.contentOffset.x:: \(scrollView.contentOffset.x)")
+        //print("scrollView.contentOffset.x:: \(scrollView.contentOffset.x)")
 
         if scrollView.contentOffset.x == -200 {
             scrollView.addSubview(menuContainerView)

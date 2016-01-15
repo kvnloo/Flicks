@@ -8,8 +8,6 @@
 
 import UIKit
 
-import UIKit
-
 class TVShowDetailViewController: UIViewController {
     
     @IBOutlet weak var titleLabel: UILabel!

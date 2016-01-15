@@ -15,13 +15,16 @@ PODS:
   - AFNetworking/UIKit (3.0.4):
     - AFNetworking/NSURLSession
   - JTProgressHUD (1.0.3)
+  - RAMAnimatedTabBarController (1.0.6)
 
 DEPENDENCIES:
   - AFNetworking
   - JTProgressHUD
+  - RAMAnimatedTabBarController
 
 SPEC CHECKSUMS:
   AFNetworking: a0075feb321559dc78d9d85b55d11caa19eabb93
   JTProgressHUD: d2519c41e664acb554932aac12f5a94b47d88a69
+  RAMAnimatedTabBarController: 1381b63e8c0a4e4c9c5e2d78472686d26bd006d9
 
 COCOAPODS: 0.39.0

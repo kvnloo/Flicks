@@ -19,6 +19,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>RAMAnimatedTabBarController.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
@@ -27,7 +32,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>7DCF6EA778C8B8FD3BBB4FC9D9CD7B1E</key>
+		<key>A51C01379F921BE0990F36D17C236841</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>AFF70B3FEA8400C484D6DEC1E14B048E</key>
 		<dict>
 			<key>primary</key>
 			<true/>

@@ -246,6 +246,7 @@
                             <containerView opaque="NO" contentMode="scaleToFill" id="LiX-Y2-GSF">
                                 <rect key="frame" x="0.0" y="0.0" width="200" height="568"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
                                     <segue destination="tX9-Xp-Tsa" kind="embed" id="LYA-WV-Nli"/>
                                 </connections>
@@ -282,7 +283,7 @@
         <!--Menu View Controller-->
         <scene sceneID="Y6g-8V-xk3">
             <objects>
-                <viewController id="dlL-sD-HPt" customClass="MenuViewController" customModule="Flicks" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MenuViewController" id="dlL-sD-HPt" customClass="MenuViewController" customModule="Flicks" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="wYU-t1-97V">
                         <rect key="frame" x="0.0" y="0.0" width="200" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -297,7 +298,7 @@
                                 <color key="sectionIndexBackgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="CategoryCell" id="6ar-1L-4Bj">
-                                        <rect key="frame" x="0.0" y="50" width="200" height="44"/>
+                                        <rect key="frame" x="0.0" y="94" width="200" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="6ar-1L-4Bj" id="dUM-vG-VfW">
                                             <rect key="frame" x="0.0" y="0.0" width="200" height="43"/>
@@ -369,7 +370,7 @@
         <!--Navigation Controller-->
         <scene sceneID="1J5-y4-f7r">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="tX9-Xp-Tsa" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="MenuNavigationController" automaticallyAdjustsScrollViewInsets="NO" id="tX9-Xp-Tsa" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="xji-Ug-KV2">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>

@@ -12,10 +12,23 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
+    var checked: [Bool]!
+    var checkedKey:String = "CHECKED_CATEGORIES"
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         UIApplication.sharedApplication().statusBarStyle = .LightContent
+        
+        let defaults = NSUserDefaults.standardUserDefaults()
+        let checked = defaults.objectForKey(checkedKey) as! [Bool]?
+        if checked == nil {
+            self.checked = [true, false, false, true, true, false, false, true]
+        }
+        else {
+            self.checked = checked
+        }
+        
+        defaults.setObject(self.checked, forKey: checkedKey)
+        
         // Override point for customization after application launch.
         /*
         //window = UIWindow(frame: UIScreen.mainScreen().bounds)
@@ -64,6 +77,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationDidEnterBackground(application: UIApplication) {
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+        
+        let defaults = NSUserDefaults.standardUserDefaults()
+        defaults.setObject(checked, forKey: checkedKey)
+        defaults.synchronize()
     }
 
     func applicationWillEnterForeground(application: UIApplication) {
@@ -76,6 +93,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillTerminate(application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+        
+        
+        
     }
 
 
