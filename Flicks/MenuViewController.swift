@@ -24,6 +24,7 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "appDidEnterBackground", name: "appDidEnterBackground", object: nil)
         tableView.dataSource = self
         tableView.delegate = self
         tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: CellIdentifier)
@@ -44,6 +45,12 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
             }
         }
 
+    }
+    
+    func appDidEnterBackground() {
+        let defaults = NSUserDefaults.standardUserDefaults()
+        defaults.setObject(checked, forKey: checkedKey)
+        defaults.synchronize()
     }
 
     override func didReceiveMemoryWarning() {
@@ -100,8 +107,15 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
         }
         
         tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
-        print(checked)
         
+        
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        
+        let containerViewController = storyboard.instantiateViewControllerWithIdentifier("ContainerViewController") as! ContainerViewController
+        let tabVC = storyboard.instantiateViewControllerWithIdentifier("TabBarController") as! UITabBarController
+        containerViewController.checked = self.checked
+        //containerViewController.reloadInputViews()
+        //containerViewController.prepareForSegue(UIStoryboardSegue(identifier: "tabBarEmbed", source: containerViewController, destination: tabVC), sender: nil)
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {

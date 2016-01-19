@@ -259,7 +259,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                         <connections>
-                                            <segue destination="S6I-RK-kXJ" kind="embed" id="kEv-Hy-Mcf"/>
+                                            <segue destination="S6I-RK-kXJ" kind="embed" identifier="tabBarEmbed" id="kEv-Hy-Mcf"/>
                                         </connections>
                                     </containerView>
                                 </subviews>
