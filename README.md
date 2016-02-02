@@ -12,6 +12,9 @@ The following **required** functionality is complete:
 - [x] Poster images are loaded using the UIImageView category in the AFNetworking library.
 - [x] User sees a loading state while waiting for the movies API.
 - [x] User can pull to refresh the movie list.
+- [x] User can view movie details by tapping on a cell.
+- [x] User can select from a tab bar for either **Now Playing** or **Top Rated** movies.
+- [x] Customize the selection effect of the cell.
 
 The following **optional** features are implemented:
 
@@ -21,6 +24,8 @@ The following **optional** features are implemented:
 - [ ] User can search for a movie.
 - [ ] All images fade in as they are loading.
 - [ ] Customize the UI.
+- [ ] For the large poster, load the low resolution image first and then switch to the high resolution image when complete.
+- [ ] Customize the navigation bar.
 
 The following **additional** features are implemented:
 
@@ -30,9 +35,11 @@ The following **additional** features are implemented:
 
 Here's a walkthrough of implemented user stories:
 
-[Simulated with very slow internet](/slow internet.gif)
+[Version 2 ](/gifs/v2.0.gif)
 
-[Simulated with normal internet](/fast internet.gif)
+[Version 1 - Simulated with very slow internet](/gifs/v1.0 - slow internet.gif)
+
+[Version 1 - Simulated with normal internet](/gifs/v1.0 - fast internet.gif)
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
