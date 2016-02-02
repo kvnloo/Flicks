@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15D13b" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="DcK-hC-r7L">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15E33e" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="DcK-hC-r7L">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
@@ -17,9 +17,14 @@
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <searchBar key="tableHeaderView" contentMode="redraw" id="zCa-D1-a5w">
+                                    <rect key="frame" x="0.0" y="44" width="320" height="44"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                    <textInputTraits key="textInputTraits"/>
+                                </searchBar>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" alpha="0.90000000000000002" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="MovieCellDetail" rowHeight="120" id="Ned-pG-t0m" customClass="MovieCell" customModule="Flicks" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="72" width="320" height="120"/>
+                                        <rect key="frame" x="0.0" y="116" width="320" height="120"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Ned-pG-t0m" id="sh6-wt-cK0">
                                             <rect key="frame" x="0.0" y="0.0" width="287" height="119"/>
@@ -71,7 +76,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="MovieCellIcon" rowHeight="268" id="cVm-Ml-4pU" customClass="MovieCell" customModule="Flicks" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="192" width="320" height="268"/>
+                                        <rect key="frame" x="0.0" y="236" width="320" height="268"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="cVm-Ml-4pU" id="9An-Iv-ltJ">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="267"/>
@@ -110,7 +115,7 @@
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <gestureRecognizers/>
                                                     <connections>
-                                                        <outletCollection property="gestureRecognizers" destination="mT0-yZ-y47" appends="YES" id="Scs-SR-ihD"/>
+                                                        <outletCollection property="gestureRecognizers" destination="fqN-be-lmf" appends="YES" id="U2g-0X-HIM"/>
                                                     </connections>
                                                 </imageView>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="IhN-sZ-y2C">
@@ -156,9 +161,9 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
-                <tapGestureRecognizer id="mT0-yZ-y47">
+                <tapGestureRecognizer id="fqN-be-lmf">
                     <connections>
-                        <segue destination="VY4-H0-ZqI" kind="push" id="RHc-xv-2lc"/>
+                        <segue destination="VY4-H0-ZqI" kind="push" id="BHT-bW-2G0"/>
                     </connections>
                 </tapGestureRecognizer>
             </objects>
@@ -248,7 +253,7 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                 <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
-                                    <segue destination="tX9-Xp-Tsa" kind="embed" id="LYA-WV-Nli"/>
+                                    <segue destination="tX9-Xp-Tsa" kind="embed" identifier="MenuSegue" id="LYA-WV-Nli"/>
                                 </connections>
                             </containerView>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="N4P-jE-vv1">
@@ -397,9 +402,14 @@
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <searchBar key="tableHeaderView" contentMode="redraw" id="gGT-K8-VOP">
+                                    <rect key="frame" x="0.0" y="44" width="320" height="44"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                    <textInputTraits key="textInputTraits"/>
+                                </searchBar>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" alpha="0.89999997615814209" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="TVShowCellDetail" rowHeight="120" id="29e-2u-WUy" userLabel="TVShowCellDetail" customClass="TVShowCell" customModule="Flicks" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="72" width="320" height="120"/>
+                                        <rect key="frame" x="0.0" y="116" width="320" height="120"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="29e-2u-WUy" id="WTr-2D-iK6">
                                             <rect key="frame" x="0.0" y="0.0" width="287" height="119"/>
@@ -451,7 +461,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="TVShowCellIcon" rowHeight="268" id="hyJ-u3-gQo" userLabel="TVShowCellIcon" customClass="TVShowCell" customModule="Flicks" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="192" width="320" height="268"/>
+                                        <rect key="frame" x="0.0" y="236" width="320" height="268"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="hyJ-u3-gQo" id="uTd-IK-z3A">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="267"/>
@@ -636,6 +646,6 @@
         <image name="menu" width="36" height="36"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="RHc-xv-2lc"/>
+        <segue reference="BHT-bW-2G0"/>
     </inferredMetricsTieBreakers>
 </document>

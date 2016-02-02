@@ -172,7 +172,7 @@ class TVShowsViewController: UIViewController, UITableViewDataSource, UITableVie
             ratingColor(cell.ratingLabel1, rating: rating1)
             ratingColor(cell.ratingLabel2, rating: rating2)
         }
-        
+        cell.selectionStyle = .None
         return cell
     }
     
@@ -203,9 +203,13 @@ class TVShowsViewController: UIViewController, UITableViewDataSource, UITableVie
     }
     
     func onRefresh() {
+        /*
         delay(2, closure: {
             self.refreshControl.endRefreshing()
         })
+*/
+        networkRequest(self.endpoint)
+        self.refreshControl.endRefreshing()
     }
     
     deinit {

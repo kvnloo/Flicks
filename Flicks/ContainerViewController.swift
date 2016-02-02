@@ -14,10 +14,19 @@ class ContainerViewController: UIViewController {
     @IBOutlet weak var menuContainerView: UIView!
     @IBOutlet weak var mainContainerView: UIView!
     
+    var mainTabBarController: TabBarViewController?
+    
     
     
     var leftMenuWidth:CGFloat = 0
-    var checked:[[Bool]]!
+    var checked:[[Bool]]! {
+        didSet(newValue) {
+            if (newValue != nil) {
+                updateTabs(newValue)
+            }
+        }
+    }
+    
     var checkedKey:String = "CHECKED_CATEGORIES"
     let categories = [["Now Playing","Popular","Top Rated", "Upcoming"],["On the Air", "Airing Today", "Top Rated", "Popular"]]
     let endPoints = [["movie/now_playing", "movie/popular", "movie/top_rated", "movie/upcoming"], ["tv/on_the_air", "tv/airing_today", "tv/top_rated", "tv/popular"]]
@@ -66,8 +75,7 @@ class ContainerViewController: UIViewController {
         menuContainerView.frame = CGRect(x: 0, y: 0, width: menuContainerView.frame.width, height: menuContainerView.frame.height)
         self.view.sendSubviewToBack(menuContainerView)
         scrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: animated)
-        
-        
+        scrollView.addSubview(mainContainerView)
     }
     
     // Open is the natural state of the menu because of how the storyboard is setup.
@@ -90,6 +98,14 @@ class ContainerViewController: UIViewController {
         // Pass the selected object to the new view controller.
         
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        
+        if segue.identifier == "MenuSegue" {
+            if let navVC = segue.destinationViewController as? UINavigationController {
+                if let menuVC = navVC.topViewController as? MenuViewController {
+                    menuVC.containerViewController = self
+                }
+            }
+        }
         
         if segue.destinationViewController.isKindOfClass(UITabBarController) {
             
@@ -128,6 +144,7 @@ class ContainerViewController: UIViewController {
             
             tabVC.viewControllers? = viewControllers
             
+            self.mainTabBarController = tabVC as? TabBarViewController
             /*
             let nowPlayingMoviesNavigationController = storyboard.instantiateViewControllerWithIdentifier("MoviesNavigationController") as! UINavigationController
             let nowPlayingMoviesViewController = nowPlayingMoviesNavigationController.topViewController as! MoviesViewController
@@ -166,6 +183,41 @@ class ContainerViewController: UIViewController {
         }
 
     }
+    func updateTabs(newTabs: [[Bool]]) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        if let tabVC = self.mainTabBarController {
+            tabVC.tabBar.barStyle = .Black
+            tabVC.tabBar.tintColor = UIColor.orangeColor()
+            var viewControllers = [UINavigationController]()
+            
+            for i in 0 ..< categories[0].count {
+                if newTabs[0][i] {
+                    let moviesNavigationController = storyboard.instantiateViewControllerWithIdentifier("MoviesNavigationController") as! UINavigationController
+                    let moviesViewController = moviesNavigationController.topViewController as! MoviesViewController
+                    moviesViewController.endpoint = endPoints[0][i]
+                    moviesNavigationController.tabBarItem.title = categories[0][i]
+                    moviesNavigationController.tabBarItem.image = UIImage(named: "popular")
+                    moviesNavigationController.navigationBar.barStyle = .BlackTranslucent
+                    viewControllers.append(moviesNavigationController)
+                }
+            }
+            for i in 0 ..< categories[1].count {
+                if newTabs[1][i] {
+                    let tvShowsNavigationController = storyboard.instantiateViewControllerWithIdentifier("TVShowsNavigationController") as! UINavigationController
+                    let tvShowsViewController = tvShowsNavigationController.topViewController as! TVShowsViewController
+                    tvShowsViewController.endpoint = endPoints[1][i]
+                    tvShowsNavigationController.tabBarItem.title = categories[1][i]
+                    tvShowsNavigationController.tabBarItem.image = UIImage(named: "popular")
+                    tvShowsNavigationController.navigationBar.barStyle = .BlackTranslucent
+                    viewControllers.append(tvShowsNavigationController)
+                }
+            }
+            
+            tabVC.viewControllers? = viewControllers
+        }
+        print(newTabs)
+    }
+
     
 
 }
@@ -174,10 +226,11 @@ extension ContainerViewController : UIScrollViewDelegate {
     func scrollViewDidScroll(scrollView: UIScrollView) {
         //print("scrollView.contentOffset.x:: \(scrollView.contentOffset.x)")
 
-        if scrollView.contentOffset.x == -200 {
+        if scrollView.contentOffset.x == -menuContainerView.frame.width {
             scrollView.addSubview(menuContainerView)
-            menuContainerView.frame = CGRect(x: -200, y: 0, width: menuContainerView.frame.width, height: menuContainerView.frame.height)
+            menuContainerView.frame = CGRect(x: -menuContainerView.frame.width, y: 0, width: menuContainerView.frame.width, height: menuContainerView.frame.height)
             scrollView.bringSubviewToFront(mainContainerView)
+            
         }
 
     }

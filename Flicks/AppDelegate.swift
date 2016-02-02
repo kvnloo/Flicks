@@ -16,6 +16,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var checkedKey:String = "CHECKED_CATEGORIES"
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+        
+        // Override point for customization after application launch.
         UIApplication.sharedApplication().statusBarStyle = .LightContent
         let defaults = NSUserDefaults.standardUserDefaults()
         let checked = defaults.objectForKey(checkedKey)
@@ -29,7 +31,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         defaults.setObject(self.checked, forKey: checkedKey)
         
-        // Override point for customization after application launch.
+        
         /*
         //window = UIWindow(frame: UIScreen.mainScreen().bounds)
         

@@ -162,7 +162,7 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
             ratingColor(cell.ratingLabel1, rating: rating1)
             ratingColor(cell.ratingLabel2, rating: rating2)
         }
-        
+        cell.selectionStyle = .None
         return cell
     }
 
@@ -193,9 +193,17 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
     }
     
     func onRefresh() {
+        /*
         delay(2, closure: {
             self.refreshControl.endRefreshing()
         })
+*/
+        //print("hi")
+        networkRequest(self.endpoint)
+        //print("networkRequest called")
+        self.refreshControl.endRefreshing()
+        //print("did finish refreshing")
+        
     }
     
     deinit {
