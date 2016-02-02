@@ -10,7 +10,7 @@ import Foundation
 
 
 
-class checkedManager {
-    var checked: [[Bool]]
+struct myVariables {
     
+    static var checked: [[Bool]]!
 }

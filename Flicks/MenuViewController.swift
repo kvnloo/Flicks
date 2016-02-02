@@ -18,7 +18,7 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     weak var mainViewController: TabBarViewController?
     var count: Int = 0
-    var checked: [[Bool]]!
+    //var checked: [[Bool]]!
     var checkedKey:String = "CHECKED_CATEGORIES"
     let CellIdentifier = "CategoryCell"
     
@@ -35,27 +35,29 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
         
         
         //Configures checked: [[Bool]]
-        let defaults = NSUserDefaults.standardUserDefaults()
-        self.checked = defaults.objectForKey(checkedKey) as! [[Bool]]
-        print(self.checked)
+        //let defaults = NSUserDefaults.standardUserDefaults()
+        //self.checked = defaults.objectForKey(checkedKey) as! [[Bool]]
+        //print(myVariables.checked)
 
-        for i in 0 ..< checked.count {
-            for j in 0 ..< checked[i].count {
-                if (checked[i][j]) {
+        for i in 0 ..< myVariables.checked.count {
+            for j in 0 ..< myVariables.checked[i].count {
+                if (myVariables.checked[i][j]) {
                     ++count
                 }
-                print(count)
+                //print(count)
             }
         }
 
     }
     
+    /*
     func appDidEnterBackground() {
         let defaults = NSUserDefaults.standardUserDefaults()
-        defaults.setObject(checked, forKey: checkedKey)
+        defaults.setObject(myVariables.checked, forKey: checkedKey)
         defaults.synchronize()
     }
-
+    */
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -93,8 +95,8 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
         let cell = tableView.dequeueReusableCellWithIdentifier("CategoryCell")!
-        checked[indexPath.section][indexPath.row] = !(checked[indexPath.section][indexPath.row])
-        if checked[indexPath.section][indexPath.row] {
+        myVariables.checked[indexPath.section][indexPath.row] = !(myVariables.checked[indexPath.section][indexPath.row])
+        if myVariables.checked[indexPath.section][indexPath.row] {
             cell.accessoryType = .Checkmark
             ++count
         }
@@ -103,21 +105,26 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
             --count
         }
         if count == 4 {
-            tableViewHandler(self.tableView,  maxChecked: true)
+            tableViewHandler(self.tableView,  maxChecked: true, minChecked: false)
+        }
+        else if count == 1 {
+            tableViewHandler(self.tableView,  maxChecked: false, minChecked: true)
         }
         else {
-            tableViewHandler(self.tableView,  maxChecked: false)
+            tableViewHandler(self.tableView,  maxChecked: false, minChecked: false)
         }
         
         tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
-        
+        /*
         if(containerViewController != nil) {
             containerViewController!.checked = self.checked
         }
-        print("menu")
-        print(checked)
-        print("container")
-        print(containerViewController!.checked)
+        */
+        //print(count)
+        //print("menu")
+        //print(checked)
+        //print("container")
+        //print(containerViewController!.checked)
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -130,7 +137,7 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
         cell.tintColor = UIColor.orangeColor()
         cell.textLabel?.textColor = UIColor.whiteColor()
         if count == 4 {
-            if checked[indexPath.section][indexPath.row] {
+            if myVariables.checked[indexPath.section][indexPath.row] {
                 cell.accessoryType = .Checkmark
             }
             else {
@@ -138,8 +145,18 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
                 disableCell(cell)
             }
         }
+        else if count == 1 {
+            if myVariables.checked[indexPath.section][indexPath.row] {
+                cell.accessoryType = .Checkmark
+                disableCell(cell)
+            }
+            else {
+                cell.accessoryType = .None
+                
+            }
+        }
         else {
-            if checked[indexPath.section][indexPath.row] {
+            if myVariables.checked[indexPath.section][indexPath.row] {
                 cell.accessoryType = .Checkmark
             }
             else {
@@ -162,19 +179,28 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
         
     }
     
-    func tableViewHandler(tableView: UITableView, maxChecked: Bool) {
+    func tableViewHandler(tableView: UITableView, maxChecked: Bool, minChecked: Bool) {
         if maxChecked {
-            for i in 0 ..< checked.count {
-                for j in 0 ..< checked[i].count {
-                    if !(checked[i][j]) {
+            for i in 0 ..< myVariables.checked.count {
+                for j in 0 ..< myVariables.checked[i].count {
+                    if !(myVariables.checked[i][j]) {
+                        disableCell(tableView.cellForRowAtIndexPath(NSIndexPath(forRow: j, inSection: i))!)
+                    }
+                }
+            }
+        }
+        else if minChecked {
+            for i in 0 ..< myVariables.checked.count {
+                for j in 0 ..< myVariables.checked[i].count {
+                    if (myVariables.checked[i][j]) {
                         disableCell(tableView.cellForRowAtIndexPath(NSIndexPath(forRow: j, inSection: i))!)
                     }
                 }
             }
         }
         else {
-            for i in 0 ..< checked.count {
-                for j in 0 ..< checked[i].count {
+            for i in 0 ..< myVariables.checked.count {
+                for j in 0 ..< myVariables.checked[i].count {
                     enableCell(tableView.cellForRowAtIndexPath(NSIndexPath(forRow: j, inSection: i))!)
                 }
             }

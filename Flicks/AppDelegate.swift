@@ -12,7 +12,7 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-    var checked: [[Bool]]!
+    //var checked: [[Bool]]!
     var checkedKey:String = "CHECKED_CATEGORIES"
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
@@ -21,15 +21,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UIApplication.sharedApplication().statusBarStyle = .LightContent
         let defaults = NSUserDefaults.standardUserDefaults()
         let checked = defaults.objectForKey(checkedKey)
-        //print(checked)
+        
         if checked == nil {
-            self.checked = [[true, false, false, true], [true, false, false, true]]
+            myVariables.checked = [[true, false, false, true], [true, false, false, true]]
         }
         else {
-            self.checked = checked as! [[Bool]]
+            myVariables.checked = checked as! [[Bool]]
         }
-        
-        defaults.setObject(self.checked, forKey: checkedKey)
+        print("app started")
+        print(myVariables.checked)
+        defaults.setObject(myVariables.checked, forKey: checkedKey)
         
         
         /*
@@ -79,7 +80,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationDidEnterBackground(application: UIApplication) {
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
-        NSNotificationCenter.defaultCenter().postNotificationName("appDidEnterBackground", object: nil)
+        //NSNotificationCenter.defaultCenter().postNotificationName("appDidEnterBackground", object: nil)
+        
+        let defaults = NSUserDefaults.standardUserDefaults()
+        defaults.setObject(myVariables.checked, forKey: checkedKey)
+        defaults.synchronize()
+        print("app closing")
+        print(myVariables.checked)
     }
 
     func applicationWillEnterForeground(application: UIApplication) {

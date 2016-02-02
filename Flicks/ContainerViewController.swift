@@ -19,14 +19,15 @@ class ContainerViewController: UIViewController {
     
     
     var leftMenuWidth:CGFloat = 0
-    var checked:[[Bool]]! {
+    /*
+    checked:[[Bool]]! {
         didSet(newValue) {
             if (newValue != nil) {
                 updateTabs(newValue)
             }
         }
     }
-    
+    */
     var checkedKey:String = "CHECKED_CATEGORIES"
     let categories = [["Now Playing","Popular","Top Rated", "Upcoming"],["On the Air", "Airing Today", "Top Rated", "Popular"]]
     let endPoints = [["movie/now_playing", "movie/popular", "movie/top_rated", "movie/upcoming"], ["tv/on_the_air", "tv/airing_today", "tv/top_rated", "tv/popular"]]
@@ -76,6 +77,7 @@ class ContainerViewController: UIViewController {
         self.view.sendSubviewToBack(menuContainerView)
         scrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: animated)
         scrollView.addSubview(mainContainerView)
+        updateTabs()
     }
     
     // Open is the natural state of the menu because of how the storyboard is setup.
@@ -109,8 +111,8 @@ class ContainerViewController: UIViewController {
         
         if segue.destinationViewController.isKindOfClass(UITabBarController) {
             
-            let defaults = NSUserDefaults.standardUserDefaults()
-            self.checked = defaults.objectForKey(checkedKey) as! [[Bool]]
+            //let defaults = NSUserDefaults.standardUserDefaults()
+            //self.checked = defaults.objectForKey(checkedKey) as! [[Bool]]
             
             let tabVC = segue.destinationViewController as! UITabBarController
             tabVC.tabBar.barStyle = .Black
@@ -120,7 +122,7 @@ class ContainerViewController: UIViewController {
             
             
             for i in 0 ..< categories[0].count {
-                if checked[0][i] {
+                if myVariables.checked[0][i] {
                     let moviesNavigationController = storyboard.instantiateViewControllerWithIdentifier("MoviesNavigationController") as! UINavigationController
                     let moviesViewController = moviesNavigationController.topViewController as! MoviesViewController
                     moviesViewController.endpoint = endPoints[0][i]
@@ -131,7 +133,7 @@ class ContainerViewController: UIViewController {
                 }
             }
             for i in 0 ..< categories[1].count {
-                if checked[0][i] {
+                if myVariables.checked[1][i] {
                     let tvShowsNavigationController = storyboard.instantiateViewControllerWithIdentifier("TVShowsNavigationController") as! UINavigationController
                     let tvShowsViewController = tvShowsNavigationController.topViewController as! TVShowsViewController
                     tvShowsViewController.endpoint = endPoints[1][i]
@@ -141,6 +143,8 @@ class ContainerViewController: UIViewController {
                     viewControllers.append(tvShowsNavigationController)
                 }
             }
+            
+            
             
             tabVC.viewControllers? = viewControllers
             
@@ -183,7 +187,7 @@ class ContainerViewController: UIViewController {
         }
 
     }
-    func updateTabs(newTabs: [[Bool]]) {
+    func updateTabs() {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         if let tabVC = self.mainTabBarController {
             tabVC.tabBar.barStyle = .Black
@@ -191,7 +195,7 @@ class ContainerViewController: UIViewController {
             var viewControllers = [UINavigationController]()
             
             for i in 0 ..< categories[0].count {
-                if newTabs[0][i] {
+                if myVariables.checked[0][i] {
                     let moviesNavigationController = storyboard.instantiateViewControllerWithIdentifier("MoviesNavigationController") as! UINavigationController
                     let moviesViewController = moviesNavigationController.topViewController as! MoviesViewController
                     moviesViewController.endpoint = endPoints[0][i]
@@ -202,7 +206,7 @@ class ContainerViewController: UIViewController {
                 }
             }
             for i in 0 ..< categories[1].count {
-                if newTabs[1][i] {
+                if myVariables.checked[1][i] {
                     let tvShowsNavigationController = storyboard.instantiateViewControllerWithIdentifier("TVShowsNavigationController") as! UINavigationController
                     let tvShowsViewController = tvShowsNavigationController.topViewController as! TVShowsViewController
                     tvShowsViewController.endpoint = endPoints[1][i]
@@ -215,7 +219,7 @@ class ContainerViewController: UIViewController {
             
             tabVC.viewControllers? = viewControllers
         }
-        print(newTabs)
+        //print(myVariables.checked)
     }
 
     
