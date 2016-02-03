@@ -21,6 +21,7 @@ import JTProgressHUD
 class TVShowsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var collectionView: UICollectionView!
     
     var tvShows: [NSDictionary]?
     var refreshControl: UIRefreshControl!
@@ -42,7 +43,16 @@ class TVShowsViewController: UIViewController, UITableViewDataSource, UITableVie
         
         networkRequest(self.endpoint)
         
-        
+        //collectionView.registerClass(MovieCollectionViewCell.self, forCellWithReuseIdentifier: "MovieCellIcon")
+        collectionView.backgroundColor = myVariables.backgroundColor
+        if detail {
+            collectionView.hidden = true
+            tableView.hidden = false
+        }
+        else {
+            collectionView.hidden = false
+            tableView.hidden = true
+        }
     }
     
     func networkRequest(endpoint: String) {
@@ -62,6 +72,7 @@ class TVShowsViewController: UIViewController, UITableViewDataSource, UITableVie
                         data, options:[]) as? NSDictionary {
                             self.tvShows = (responseDictionary["results"] as! [NSDictionary])
                             self.tableView.reloadData()
+                            self.collectionView.reloadData()
                             JTProgressHUD.hide()
                     }
                 }
@@ -87,13 +98,7 @@ class TVShowsViewController: UIViewController, UITableViewDataSource, UITableVie
     // numberOfRowsInSection
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if let tvShows = tvShows {
-            if detail {
-                return tvShows.count
-            }
-            else {
-                return tvShows.count/2
-            }
-            
+            return tvShows.count
         }
         else {
             return 0
@@ -101,80 +106,51 @@ class TVShowsViewController: UIViewController, UITableViewDataSource, UITableVie
     }
     // heightForRowAtIndexPath
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        if detail {
-            return 120
-        }
-        else {
-            return 268
-        }
+        return 120
     }
     // configure cell
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        var cell: TVShowCell
-        
-        if detail {
-            cell = tableView.dequeueReusableCellWithIdentifier("TVShowCellDetail", forIndexPath:  indexPath) as! TVShowCell
-            
-            
-            
-            let tvShow = tvShows![indexPath.row]
-            let name = tvShow["name"] as? String
-            let overview = tvShow["overview"] as? String
-            cell.titleLabel.text = name
-            cell.overviewLabel.text = overview
-            
-            let baseUrl = "http://image.tmdb.org/t/p/w500/"
-            
-            if let posterPath = tvShow["poster_path"] as? String {
-                let posterURL = NSURL(string: baseUrl + posterPath)
-                cell.posterImage.setImageWithURL(posterURL!)
-            }
-            
-            let airDate = (tvShow["first_air_date"] as! NSString)
-            let rating = tvShow["vote_average"] as! Double
-            cell.airDateLabel.text = String(airDate)
-            cell.ratingLabel.text = String(format: "%.1f", rating)
-            ratingColor(cell.ratingLabel, rating: rating)
-            
+        let cell: TVShowCell = tableView.dequeueReusableCellWithIdentifier("TVShowCellDetail", forIndexPath:  indexPath) as! TVShowCell
+        let tvShow = tvShows![indexPath.row]
+        let name = tvShow["name"] as? String
+        let overview = tvShow["overview"] as? String
+        cell.titleLabel.text = name
+        cell.overviewLabel.text = overview
+        let baseUrl = "http://image.tmdb.org/t/p/w500/"
+        if let posterPath = tvShow["poster_path"] as? String {
+            let posterURL = NSURL(string: baseUrl + posterPath)
+            cell.posterImage.setImageWithURL(posterURL!)
         }
-        else {
-            cell = tableView.dequeueReusableCellWithIdentifier("TVShowCellIcon", forIndexPath:  indexPath) as! TVShowCell
-            cell.selectionStyle = .None
-            let index = 2*indexPath.row
-            let movie1 = tvShows![index]
-            let movie2 = tvShows![index + 1]
-            
-            let airDate1 = (movie1["first_air_date"] as! NSString)
-            let airDate2 = (movie1["first_air_date"] as! NSString)
-            
-            let rating1 = movie1["vote_average"] as! Double
-            let rating2 = movie1["vote_average"] as! Double
-            
-            let posterPath1 = movie1["poster_path"] as! String
-            let posterPath2 = movie2["poster_path"] as! String
-            
-            let baseUrl = "http://image.tmdb.org/t/p/w500/"
-            let imageUrl1 = NSURL(string: baseUrl + posterPath1)
-            let imageUrl2 = NSURL(string: baseUrl + posterPath2)
-            
-            cell.posterImage1.setImageWithURL(imageUrl1!)
-            cell.posterImage2.setImageWithURL(imageUrl2!)
-            
-            
-            
-            cell.airDateLabel1.text = String(airDate1)
-            cell.airDateLabel2.text = String(airDate2)
-            
-            cell.ratingLabel1.text = String(format: "%.1f", rating1)
-            cell.ratingLabel2.text = String(format: "%.1f", rating2)
-            
-            ratingColor(cell.ratingLabel1, rating: rating1)
-            ratingColor(cell.ratingLabel2, rating: rating2)
-        }
+        let airDate = (tvShow["first_air_date"] as! NSString)
+        let rating = tvShow["vote_average"] as! Double
+        cell.airDateLabel.text = String(airDate)
+        cell.ratingLabel.text = String(format: "%.1f", rating)
+        ratingColor(cell.ratingLabel, rating: rating)
+
         cell.selectionStyle = .None
         return cell
     }
+    
+    // MARK: CollectionView
+    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        if let tvShows = tvShows {
+            return tvShows.count
+        }
+        else {
+            return 0
+        }
+    }
+    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("TVShowCellIcon", forIndexPath:  indexPath) as! TVShowCollectionViewCell
+        let tvShow = tvShows![indexPath.row]
+        let baseUrl = "http://image.tmdb.org/t/p/w500/"
+        let posterPath = tvShow["poster_path"] as! String
+        let posterURL = NSURL(string: baseUrl + posterPath)
+        cell.posterImage.setImageWithURL(posterURL!)
+        return cell
+    }
+
     
     // MARK: Helper methods
     
@@ -227,15 +203,16 @@ class TVShowsViewController: UIViewController, UITableViewDataSource, UITableVie
         if detail {
             let image: UIImage = UIImage(named: "detailView.png")!
             viewTypeButton.image = image
+            tableView.hidden = true
+            collectionView.hidden = false
         }
         else {
             let image: UIImage = UIImage(named: "albumView.png")!
             viewTypeButton.image = image
+            tableView.hidden = false
+            collectionView.hidden = true
         }
-        detail = !(detail)
-        
-        tableView.reloadData()
-    }
+        detail = !(detail)    }
     
     @IBAction func toggleMenu(sender: AnyObject) {
         NSNotificationCenter.defaultCenter().postNotificationName("toggleMenu", object: nil)
@@ -257,7 +234,12 @@ class TVShowsViewController: UIViewController, UITableViewDataSource, UITableVie
             tvShowDetailViewController.tvShow = tvShow
         }
         else {
-            let gestureRecognizer = sender as! UIGestureRecognizer
+            let cell = sender as! UICollectionViewCell
+            let indexpath = collectionView.indexPathForCell(cell)
+            let tvShow = tvShows![indexpath!.row]
+            
+            let detailViewController = segue.destinationViewController as! TVShowDetailViewController
+            detailViewController.tvShow = tvShow
             
         }
         

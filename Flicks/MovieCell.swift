@@ -28,8 +28,8 @@ class MovieCell: UITableViewCell {
         let tapGestureRecognizer1 = UITapGestureRecognizer(target: self, action: "postNotification:")
         let tapGestureRecognizer2 = UITapGestureRecognizer(target: self, action: "postNotification:")
         //print(posterImage1)
-        posterImage1.addGestureRecognizer(tapGestureRecognizer1)
-        posterImage2.addGestureRecognizer(tapGestureRecognizer2)
+        //posterImage1.addGestureRecognizer(tapGestureRecognizer1)
+        //posterImage2.addGestureRecognizer(tapGestureRecognizer2)
     }
     /*
     protocol cellDelegate: MoviesViewController {

@@ -7,10 +7,15 @@
 //
 
 import Foundation
+import UIKit
 
 
 
 struct myVariables {
     
     static var checked: [[Bool]]!
+    static var categories: [[String]]!
+    static var endPoints: [[String]]!
+    static var backgroundColor: UIColor!
+    static var data: [NSDictionary]!
 }

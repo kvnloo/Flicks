@@ -10,15 +10,17 @@ import UIKit
 import AFNetworking
 import JTProgressHUD
 
-class MoviesViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class MoviesViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
 
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var collectionView: UICollectionView!
     
     var movies: [NSDictionary]?
     var refreshControl: UIRefreshControl!
     var endpoint: String!
     var detail: Bool = true
     var tabBarItemTitle: String!
+    
     
     @IBOutlet weak var viewTypeButton: UIBarButtonItem!
     
@@ -34,8 +36,16 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
         
         networkRequest(self.endpoint)
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "prepareForSegue", name: "prepareForSegue", object: nil)
-        
+        //collectionView.registerClass(MovieCollectionViewCell.self, forCellWithReuseIdentifier: "MovieCellIcon")
+        collectionView.backgroundColor = myVariables.backgroundColor
+        if detail {
+            collectionView.hidden = true
+            tableView.hidden = false
+        }
+        else {
+            collectionView.hidden = false
+            tableView.hidden = true
+        }
         
     }
     
@@ -56,6 +66,7 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
                         data, options:[]) as? NSDictionary {
                             self.movies = (responseDictionary["results"] as! [NSDictionary])
                             self.tableView.reloadData()
+                            self.collectionView.reloadData()
                             JTProgressHUD.hide()
                     }
                 }
@@ -81,13 +92,7 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
     // numberOfRowsInSection
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if let movies = movies {
-            if detail {
                 return movies.count
-            }
-            else {
-                return movies.count/2
-            }
-            
         }
         else {
             return 0
@@ -95,76 +100,52 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
     }
     // heightForRowAtIndexPath
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        if detail {
-            return 120
-        }
-        else {
-            return 268
-        }
+        return 120
     }
     // configure cell
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        var cell: MovieCell
+        let cell: MovieCell = tableView.dequeueReusableCellWithIdentifier("MovieCellDetail", forIndexPath:  indexPath) as! MovieCell
+        let movie = movies![indexPath.row]
+        let title = movie["title"] as? String
+        let overview = movie["overview"] as? String
+        cell.titleLabel.text = title
+        cell.overviewLabel.text = overview
         
-        if detail {
-            cell = tableView.dequeueReusableCellWithIdentifier("MovieCellDetail", forIndexPath:  indexPath) as! MovieCell
-            
-            
-            
-            let movie = movies![indexPath.row]
-            let title = movie["title"] as? String
-            let overview = movie["overview"] as? String
-            cell.titleLabel.text = title
-            cell.overviewLabel.text = overview
-            
-            let baseUrl = "http://image.tmdb.org/t/p/w500/"
-            
-            if let posterPath = movie["poster_path"] as? String {
-                let posterURL = NSURL(string: baseUrl + posterPath)
-                cell.posterImage.setImageWithURL(posterURL!)
-            }
-            
-            let year = (movie["release_date"] as! NSString).substringWithRange(NSRange(location: 0, length: 4))
-            let rating = movie["vote_average"] as! Double
-            cell.yearLabel.text = String(year)
-            cell.ratingLabel.text = String(format: "%.1f", rating)
-            ratingColor(cell.ratingLabel, rating: rating)
-            
+        let baseUrl = "http://image.tmdb.org/t/p/w500/"
+        
+        if let posterPath = movie["poster_path"] as? String {
+            let posterURL = NSURL(string: baseUrl + posterPath)
+            cell.posterImage.setImageWithURL(posterURL!)
+        }
+        
+        let year = (movie["release_date"] as! NSString).substringWithRange(NSRange(location: 0, length: 4))
+        let rating = movie["vote_average"] as! Double
+        cell.yearLabel.text = String(year)
+        cell.ratingLabel.text = String(format: "%.1f", rating)
+        ratingColor(cell.ratingLabel, rating: rating)
+        cell.selectionStyle = .None
+        return cell
+    }
+    
+    
+    // MARK: CollectionView
+    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        if let movies = movies {
+            return movies.count
         }
         else {
-            cell = tableView.dequeueReusableCellWithIdentifier("MovieCellIcon", forIndexPath:  indexPath) as! MovieCell
-            cell.selectionStyle = .None
-            let index = 2*indexPath.row
-            let movie1 = movies![index]
-            let movie2 = movies![index + 1]
-            
-            let year1 = (movie1["release_date"] as! NSString).substringWithRange(NSRange(location: 0, length: 4))
-            let year2 = (movie1["release_date"] as! NSString).substringWithRange(NSRange(location: 0, length: 4))
-            
-            let rating1 = movie1["vote_average"] as! Double
-            let rating2 = movie1["vote_average"] as! Double
-            
-            let posterPath1 = movie1["poster_path"] as! String
-            let posterPath2 = movie2["poster_path"] as! String
-            
-            let baseUrl = "http://image.tmdb.org/t/p/w500/"
-            let imageUrl1 = NSURL(string: baseUrl + posterPath1)
-            let imageUrl2 = NSURL(string: baseUrl + posterPath2)
-            
-            cell.posterImage1.setImageWithURL(imageUrl1!)
-            cell.posterImage2.setImageWithURL(imageUrl2!)
-            
-            cell.yearLabel1.text = String(year1)
-            cell.yearLabel2.text = String(year2)
-            
-            cell.ratingLabel1.text = String(format: "%.1f", rating1)
-            cell.ratingLabel2.text = String(format: "%.1f", rating2)
-            
-            ratingColor(cell.ratingLabel1, rating: rating1)
-            ratingColor(cell.ratingLabel2, rating: rating2)
+            return 0
         }
-        cell.selectionStyle = .None
+    }
+    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("MovieCellIcon", forIndexPath: indexPath) as! MovieCollectionViewCell
+        let movie = movies![indexPath.row]
+        let posterPath = movie["poster_path"] as! String
+        let baseUrl = "http://image.tmdb.org/t/p/w500/"
+        let imageUrl = NSURL(string: baseUrl + posterPath)
+        print(cell.heightAnchor)
+        cell.posterImage.setImageWithURL(imageUrl!)
         return cell
     }
 
@@ -184,7 +165,7 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
             label.textColor = UIColor.whiteColor()
         }
     }
-    
+    /*
     func delay(delay:Double, closure:()->()) {
         dispatch_after(
             dispatch_time(
@@ -193,18 +174,10 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
             ),
             dispatch_get_main_queue(), closure)
     }
-    
+    */
     func onRefresh() {
-        /*
-        delay(2, closure: {
-            self.refreshControl.endRefreshing()
-        })
-*/
-        //print("hi")
         networkRequest(self.endpoint)
-        //print("networkRequest called")
         self.refreshControl.endRefreshing()
-        //print("did finish refreshing")
         
     }
     
@@ -223,14 +196,17 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
         if detail {
             let image: UIImage = UIImage(named: "detailView.png")!
             viewTypeButton.image = image
+            tableView.hidden = true
+            collectionView.hidden = false
         }
         else {
             let image: UIImage = UIImage(named: "albumView.png")!
             viewTypeButton.image = image
+            tableView.hidden = false
+            collectionView.hidden = true
         }
         detail = !(detail)
-        print(detail)
-        tableView.reloadData()
+        
     }
     
     @IBAction func toggleMenu(sender: AnyObject) {
@@ -243,8 +219,7 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-        print("asdadgd")
+        // Pass the selected object to the new view controller.a
         if detail {
             let cell = sender as! UITableViewCell
             let indexpath = tableView.indexPathForCell(cell)
@@ -254,24 +229,12 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
             detailViewController.movie = movie
         }
         else {
-            if segue.identifier == "tapLeft" {
-                //print("tapLeft works")
-                let cell = (sender?.view as! UIImageView).superview?.superview as! UITableViewCell
-                let indexPath = tableView.indexPathForCell(cell)
-                let index = 2 * indexPath!.row
-                let movie = movies![index]
-                let detailViewController = segue.destinationViewController as! MovieDetailViewController
-                detailViewController.movie = movie
-            }
-            else if segue.identifier == "tapRight" {
-                //print("tapRight works")
-                let cell = (sender?.view as! UIImageView).superview?.superview as! UITableViewCell
-                let indexPath = tableView.indexPathForCell(cell)
-                let index = 2 * indexPath!.row + 1
-                let movie = movies![index]
-                let detailViewController = segue.destinationViewController as! MovieDetailViewController
-                detailViewController.movie = movie
-            }
+            let cell = sender as! UICollectionViewCell
+            let indexpath = collectionView.indexPathForCell(cell)
+            let movie = movies![indexpath!.row]
+            
+            let detailViewController = segue.destinationViewController as! MovieDetailViewController
+            detailViewController.movie = movie
         }
     }
 }

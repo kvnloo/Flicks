@@ -28,6 +28,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         else {
             myVariables.checked = checked as! [[Bool]]
         }
+        myVariables.categories = [["Now Playing Movies","Popular Movies","Top Rated Movies", "Upcoming Movies"],["On the Air TV Shows", "TV Shows Airing Today", "Top Rated TV Shows", "Popular TV Shows"]]
+        myVariables.endPoints = [["movie/now_playing", "movie/popular", "movie/top_rated", "movie/upcoming"], ["tv/on_the_air", "tv/airing_today", "tv/top_rated", "tv/popular"]]
+        myVariables.backgroundColor = UIColor.darkGrayColor()
         //print("app started")
         //print(myVariables.checked)
         defaults.setObject(myVariables.checked, forKey: checkedKey)
