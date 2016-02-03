@@ -72,7 +72,7 @@
                                             <outlet property="ratingLabel" destination="GYU-Pa-q34" id="isg-Iw-Uhq"/>
                                             <outlet property="titleLabel" destination="VZR-WM-lLM" id="Cll-y8-sri"/>
                                             <outlet property="yearLabel" destination="IBk-Gj-MBr" id="p2Q-qB-enj"/>
-                                            <segue destination="VY4-H0-ZqI" kind="push" id="fnk-ow-Sgn"/>
+                                            <segue destination="VY4-H0-ZqI" kind="push" identifier="detail" id="fnk-ow-Sgn"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="MovieCellIcon" rowHeight="268" id="cVm-Ml-4pU" customClass="MovieCell" customModule="Flicks" customModuleProvider="target">
@@ -114,17 +114,11 @@
                                                     <rect key="frame" x="8" y="8" width="148" height="223"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <gestureRecognizers/>
-                                                    <connections>
-                                                        <outletCollection property="gestureRecognizers" destination="fqN-be-lmf" appends="YES" id="U2g-0X-HIM"/>
-                                                    </connections>
                                                 </imageView>
                                                 <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="IhN-sZ-y2C">
                                                     <rect key="frame" x="164" y="8" width="148" height="223"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <gestureRecognizers/>
-                                                    <connections>
-                                                        <outletCollection property="gestureRecognizers" destination="L42-pC-kPN" appends="YES" id="sAa-Jt-pMI"/>
-                                                    </connections>
                                                 </imageView>
                                             </subviews>
                                         </tableViewCellContentView>
@@ -165,16 +159,6 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
-                <tapGestureRecognizer id="fqN-be-lmf">
-                    <connections>
-                        <segue destination="VY4-H0-ZqI" kind="push" identifier="tapLeft" id="BHT-bW-2G0"/>
-                    </connections>
-                </tapGestureRecognizer>
-                <tapGestureRecognizer id="L42-pC-kPN">
-                    <connections>
-                        <segue destination="VY4-H0-ZqI" kind="push" identifier="tapRight" id="poy-KS-C4W"/>
-                    </connections>
-                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="2078" y="344"/>
         </scene>
@@ -654,7 +638,4 @@
         <image name="albumView" width="36" height="36"/>
         <image name="menu" width="36" height="36"/>
     </resources>
-    <inferredMetricsTieBreakers>
-        <segue reference="poy-KS-C4W"/>
-    </inferredMetricsTieBreakers>
 </document>

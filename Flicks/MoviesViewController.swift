@@ -34,6 +34,8 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
         
         networkRequest(self.endpoint)
         
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "prepareForSegue", name: "prepareForSegue", object: nil)
+        
         
     }
     

@@ -25,8 +25,18 @@ class MovieCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        let tapGestureRecognizer1 = UITapGestureRecognizer(target: self, action: "postNotification:")
+        let tapGestureRecognizer2 = UITapGestureRecognizer(target: self, action: "postNotification:")
+        //print(posterImage1)
+        posterImage1.addGestureRecognizer(tapGestureRecognizer1)
+        posterImage2.addGestureRecognizer(tapGestureRecognizer2)
     }
-
+    /*
+    protocol cellDelegate: MoviesViewController {
+        handleTapImage1();
+        handleTapImage2();
+    }
+*/
     override func setSelected(selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
