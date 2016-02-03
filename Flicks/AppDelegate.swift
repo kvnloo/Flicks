@@ -28,8 +28,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         else {
             myVariables.checked = checked as! [[Bool]]
         }
-        print("app started")
-        print(myVariables.checked)
+        //print("app started")
+        //print(myVariables.checked)
         defaults.setObject(myVariables.checked, forKey: checkedKey)
         
         
@@ -85,8 +85,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let defaults = NSUserDefaults.standardUserDefaults()
         defaults.setObject(myVariables.checked, forKey: checkedKey)
         defaults.synchronize()
-        print("app closing")
-        print(myVariables.checked)
+        //print("app closing")
+        //print(myVariables.checked)
     }
 
     func applicationWillEnterForeground(application: UIApplication) {

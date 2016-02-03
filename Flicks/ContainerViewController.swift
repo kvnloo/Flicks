@@ -29,7 +29,7 @@ class ContainerViewController: UIViewController {
     }
     */
     var checkedKey:String = "CHECKED_CATEGORIES"
-    let categories = [["Now Playing","Popular","Top Rated", "Upcoming"],["On the Air", "Airing Today", "Top Rated", "Popular"]]
+    let categories = [["Now Playing Movies","Popular Movies","Top Rated Movies", "Upcoming Movies"],["On the Air TV Shows", "TV Shows Airing Today", "Top Rated TV Shows", "Popular TV Shows"]]
     let endPoints = [["movie/now_playing", "movie/popular", "movie/top_rated", "movie/upcoming"], ["tv/on_the_air", "tv/airing_today", "tv/top_rated", "tv/popular"]]
     
     override func viewDidLoad() {

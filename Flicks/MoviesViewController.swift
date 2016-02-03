@@ -227,7 +227,7 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
             viewTypeButton.image = image
         }
         detail = !(detail)
-        
+        print(detail)
         tableView.reloadData()
     }
     
@@ -242,6 +242,7 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
+        print("asdadgd")
         if detail {
             let cell = sender as! UITableViewCell
             let indexpath = tableView.indexPathForCell(cell)
@@ -251,9 +252,24 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
             detailViewController.movie = movie
         }
         else {
-            let gestureRecognizer = sender as! UIGestureRecognizer
-            
+            if segue.identifier == "tapLeft" {
+                //print("tapLeft works")
+                let cell = (sender?.view as! UIImageView).superview?.superview as! UITableViewCell
+                let indexPath = tableView.indexPathForCell(cell)
+                let index = 2 * indexPath!.row
+                let movie = movies![index]
+                let detailViewController = segue.destinationViewController as! MovieDetailViewController
+                detailViewController.movie = movie
+            }
+            else if segue.identifier == "tapRight" {
+                //print("tapRight works")
+                let cell = (sender?.view as! UIImageView).superview?.superview as! UITableViewCell
+                let indexPath = tableView.indexPathForCell(cell)
+                let index = 2 * indexPath!.row + 1
+                let movie = movies![index]
+                let detailViewController = segue.destinationViewController as! MovieDetailViewController
+                detailViewController.movie = movie
+            }
         }
-        
     }
 }
