@@ -40,6 +40,8 @@ The following **additional** features are implemented:
 
 Here's a walkthrough of implemented user stories:
 
+[Version 2 -> All Features implemented work properly](/gifs/v2.0 - selection of tabs works.gif)
+
 [Version 2 ](/gifs/v2.0.gif)
 
 [Version 1 - Simulated with very slow internet](/gifs/v1.0 - slow internet.gif)
