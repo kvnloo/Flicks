@@ -2,7 +2,7 @@
 
 Flicks is a movies app using the [The Movie Database API](http://docs.themoviedb.apiary.io/#).
 
-Time spent: **X** hours spent in total
+Time spent: **1** hours spent in total
 
 ## User Stories
 
@@ -24,7 +24,7 @@ The following **optional** features are implemented:
 
 The following **additional** features are implemented:
 
-- [ ] If internet connection is slow or unreliable, the loading state lasts only as long as it takes to get the movie names and descriptions. The movie thumbnails are loaded afterwards, when the user can interact with the application. This prioritizes the movie names and descriptions over the optional movie poster thumbnails.
+- [x] If internet connection is slow or unreliable, the loading state lasts only as long as it takes to get the movie names and descriptions. The movie thumbnails are loaded afterwards, when the user can interact with the application. This prioritizes the movie names and descriptions over the optional movie poster thumbnails.
 
 ## Video Walkthrough 
 
