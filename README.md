@@ -2,7 +2,7 @@
 
 Flicks is a movies app using the [The Movie Database API](http://docs.themoviedb.apiary.io/#).
 
-Time spent: **X** hours spent in total
+Time spent: **20** hours spent in total
 
 ## User Stories
 
@@ -19,17 +19,22 @@ The following **required** functionality is complete:
 The following **optional** features are implemented:
 
 - [ ] User sees an error message when there's a networking error.
-- [ ] Movies are displayed using a CollectionView instead of a TableView.
-- [ ] User can select from a tab bar for either "Now Playing" or "Top Rated" movies.
+- [x] Movies are displayed using a CollectionView instead of a TableView.
+- [x] User can select from a tab bar for either "Now Playing" or "Top Rated" movies.
 - [ ] User can search for a movie.
 - [ ] All images fade in as they are loading.
-- [ ] Customize the UI.
+- [x] Customize the UI.
 - [ ] For the large poster, load the low resolution image first and then switch to the high resolution image when complete.
-- [ ] Customize the navigation bar.
+- [x] Customize the navigation bar.
 
 The following **additional** features are implemented:
 
-- [ ] If internet connection is slow or unreliable, the loading state lasts only as long as it takes to get the movie names and descriptions. The movie thumbnails are loaded afterwards, when the user can interact with the application. This prioritizes the movie names and descriptions over the optional movie poster thumbnails.
+- [x] If internet connection is slow or unreliable, the loading state lasts only as long as it takes to get the movie names and descriptions. The movie thumbnails are loaded afterwards, when the user can interact with the application. This prioritizes the movie names and descriptions over the optional movie poster thumbnails.
+- [x] Allows user to select up to 4 different categories of movies or tv shows.
+- [x] Uses UserDefaults to see which tabs are selected
+- [x] User can switch between detail view or poster view
+- [ ] Caches 8 json files as nsdictionaries in case user does not have internet the next time they use the application
+- [ ] will notify user they are viewing old data if a stable internet connection is not detected
 
 ## Video Walkthrough 
 
