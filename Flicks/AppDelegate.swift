@@ -12,10 +12,66 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
+    //var checked: [[Bool]]!
+    var checkedKey:String = "CHECKED_CATEGORIES"
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+        
         // Override point for customization after application launch.
+        UIApplication.sharedApplication().statusBarStyle = .LightContent
+        let defaults = NSUserDefaults.standardUserDefaults()
+        let checked = defaults.objectForKey(checkedKey)
+        
+        if checked == nil {
+            myVariables.checked = [[true, false, false, true], [true, false, false, true]]
+        }
+        else {
+            myVariables.checked = checked as! [[Bool]]
+        }
+        myVariables.categories = [["Now Playing Movies","Popular Movies","Top Rated Movies", "Upcoming Movies"],["On the Air TV Shows", "TV Shows Airing Today", "Top Rated TV Shows", "Popular TV Shows"]]
+        myVariables.endPoints = [["movie/now_playing", "movie/popular", "movie/top_rated", "movie/upcoming"], ["tv/on_the_air", "tv/airing_today", "tv/top_rated", "tv/popular"]]
+        myVariables.backgroundColor = UIColor.darkGrayColor()
+        //print("app started")
+        //print(myVariables.checked)
+        defaults.setObject(myVariables.checked, forKey: checkedKey)
+        
+        
+        /*
+        //window = UIWindow(frame: UIScreen.mainScreen().bounds)
+        
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        
+        let nowPlayingNavigationController = storyboard.instantiateViewControllerWithIdentifier("FlicksNavigationController") as! UINavigationController
+        let nowPlayingViewController = nowPlayingNavigationController.topViewController as! MoviesViewController
+        nowPlayingViewController.endpoint = "now_playing"
+        nowPlayingNavigationController.tabBarItem.title = "Now Playing"
+        nowPlayingNavigationController.tabBarItem.image = UIImage(named: "popular")
+        nowPlayingNavigationController.navigationBar.barStyle = .BlackTranslucent
+        
+        let topRatedNavigationController = storyboard.instantiateViewControllerWithIdentifier("FlicksNavigationController") as! UINavigationController
+        let topRatedViewController = topRatedNavigationController.topViewController as! MoviesViewController
+        topRatedViewController.endpoint = "top_rated"
+        topRatedNavigationController.tabBarItem.title = "Top Rated"
+        topRatedNavigationController.tabBarItem.image = UIImage(named: "topRated")
+        
+        topRatedNavigationController.navigationBar.barStyle = .BlackTranslucent
+        
+        //window?.rootViewController = tabBarController
+        /*
+        let tabBarController = storyboard.instantiateViewControllerWithIdentifier("TabBarController") as! UITabBarController
+        tabBarController.viewControllers = [nowPlayingNavigationController, topRatedNavigationController]
+        tabBarController.tabBar.barStyle = .Black
+        tabBarController.tabBar.tintColor = UIColor.orangeColor()
+        */
+        
+        
+        //let containerViewController = storyboard.instantiateViewControllerWithIdentifier("ContainerViewController") as! ContainerViewController
+        //let mainContainerView = containerViewController.mainContainerView
+        
+        
+        //window?.makeKeyAndVisible()
+        */
+        
         return true
     }
 
@@ -27,6 +83,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationDidEnterBackground(application: UIApplication) {
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+        //NSNotificationCenter.defaultCenter().postNotificationName("appDidEnterBackground", object: nil)
+        
+        let defaults = NSUserDefaults.standardUserDefaults()
+        defaults.setObject(myVariables.checked, forKey: checkedKey)
+        defaults.synchronize()
+        //print("app closing")
+        //print(myVariables.checked)
     }
 
     func applicationWillEnterForeground(application: UIApplication) {
@@ -39,6 +102,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillTerminate(application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+        
+        
+        
     }
 
 

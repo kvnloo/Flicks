@@ -2,12 +2,13 @@
 
 Flicks is a movies app using the [The Movie Database API](http://docs.themoviedb.apiary.io/#).
 
-Time spent: **X** hours spent in total
+Time spent: **20** hours spent in total
 
 ## User Stories
 
 The following **required** functionality is complete:
 
+<<<<<<< HEAD
 - [ ] User can view a list of movies currently playing in theaters from The Movie Database.
 - [ ] Poster images are loaded using the UIImageView category in the AFNetworking library.
 - [ ] User sees a loading state while waiting for the movies API.
@@ -18,19 +19,55 @@ The following **optional** features are implemented:
 
 - [ ] Movies are displayed using a CollectionView instead of a TableView.
 - [ ] User can select from a tab bar for either "Now Playing" or "Top Rated" movies.
+=======
+- [x] User can view a list of movies currently playing in theaters from The Movie Database.
+- [x] Poster images are loaded using the UIImageView category in the AFNetworking library.
+- [x] User sees a loading state while waiting for the movies API.
+- [x] User can pull to refresh the movie list.
+- [x] User can view movie details by tapping on a cell.
+- [x] User can select from a tab bar for either **Now Playing** or **Top Rated** movies.
+- [x] Customize the selection effect of the cell.
+
+The following **optional** features are implemented:
+
+- [ ] User sees an error message when there's a networking error.
+- [x] Movies are displayed using a CollectionView instead of a TableView.
+- [x] User can select from a tab bar for either "Now Playing" or "Top Rated" movies.
+>>>>>>> ea4a30a595aeff87b53b7074f92957a0dc73ecfc
 - [ ] User can search for a movie.
 - [ ] All images fade in as they are loading.
-- [ ] Customize the UI.
+- [x] Customize the UI.
+- [ ] For the large poster, load the low resolution image first and then switch to the high resolution image when complete.
+- [x] Customize the navigation bar.
 
 The following **additional** features are implemented:
 
+<<<<<<< HEAD
 - [ ] List anything else that you can get done to improve the app functionality!
+=======
+- [x] If internet connection is slow or unreliable, the loading state lasts only as long as it takes to get the movie names and descriptions. The movie thumbnails are loaded afterwards, when the user can interact with the application. This prioritizes the movie names and descriptions over the optional movie poster thumbnails.
+- [x] Allows user to select up to 4 different categories of movies or tv shows.
+- [x] Uses UserDefaults to see which tabs are selected
+- [x] User can switch between detail view or poster view
+- [ ] Caches 8 json files as nsdictionaries in case user does not have internet the next time they use the application
+- [ ] will notify user they are viewing old data if a stable internet connection is not detected
+>>>>>>> ea4a30a595aeff87b53b7074f92957a0dc73ecfc
 
 ## Video Walkthrough 
 
 Here's a walkthrough of implemented user stories:
 
+<<<<<<< HEAD
 <img src='' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+=======
+[Version 2 -> All Features implemented work properly](/gifs/v2.0-final.gif)
+
+[Version 2 ](/gifs/v2.0.gif)
+
+[Version 1 - Simulated with very slow internet](/gifs/v1.0 - slow internet.gif)
+
+[Version 1 - Simulated with normal internet](/gifs/v1.0 - fast internet.gif)
+>>>>>>> ea4a30a595aeff87b53b7074f92957a0dc73ecfc
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
