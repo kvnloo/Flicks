@@ -6,7 +6,7 @@ use_frameworks!
 
 target 'Flicks' do
 	pod 'AFNetworking'
-	pod 'JTProgressHUD’
-	pod ‘RAMAnimatedTabBarController’
+	pod 'JTProgressHUD'
+	pod 'RAMAnimatedTabBarController'
 end
 
